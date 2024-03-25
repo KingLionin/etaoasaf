@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\OffboardingRequest;
-use App\Models\Employee; // Add Employee model
+use App\Models\Employee;
 use App\Http\Controllers\Controller;
 
 class OffboardingRequestsController extends Controller
@@ -23,23 +23,14 @@ class OffboardingRequestsController extends Controller
                 'files.*' => 'file|max:104857600',
             ]);
 
+            // Retrieve employee details
             $employee = Employee::findOrFail($validatedData['employee_id']);
 
-            $fileNames = [];
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
-                    $path = $file->store('offboarding_files');
-                    $fileNames[] = $file->getClientOriginalName();
-                }
-                $validatedData['files'] = implode(',', $fileNames);
-            }
+            // Handle file uploads
+            $fileNames = $this->handleFileUploads($request);
 
             // Add employee details to validated data
-            $validatedData['employee_lastname'] = $employee->employee_lastname;
-            $validatedData['employee_firstname'] = $employee->employee_firstname;
-            $validatedData['employee_middlename'] = $employee->employee_middlename;
-            $validatedData['department'] = $employee->department;
-            $validatedData['position'] = $employee->position;
+            $validatedData = $this->addEmployeeDetails($employee, $validatedData);
 
             // Create offboarding request
             OffboardingRequest::create($validatedData);
@@ -58,5 +49,30 @@ class OffboardingRequestsController extends Controller
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
+    }
+
+    private function handleFileUploads(Request $request): array
+    {
+        $fileNames = [];
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('offboarding_files');
+                $fileNames[] = $file->getClientOriginalName();
+            }
+        }
+
+        return $fileNames;
+    }
+
+    private function addEmployeeDetails(Employee $employee, array $validatedData): array
+    {
+        $validatedData['employee_lastname'] = $employee->employee_lastname;
+        $validatedData['employee_firstname'] = $employee->employee_firstname;
+        $validatedData['employee_middlename'] = $employee->employee_middlename;
+        $validatedData['department'] = $employee->department;
+        $validatedData['position'] = $employee->position;
+
+        return $validatedData;
     }
 }

@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-@component('components.breadcrumb')
-@slot('title') Employee Termination and Offboarding Dashboard @endslot
-@endcomponent
 
 <div class="content">
 <div class="row mt-3">

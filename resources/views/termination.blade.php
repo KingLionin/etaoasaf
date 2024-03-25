@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-@component('components.breadcrumb')
-@slot('title') EMPLOYEE TERMINATION @endslot
-@endcomponent
 
 <div class="content">
 

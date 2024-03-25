@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-@component('components.breadcrumb')
-@slot('title') USER PROFILE @endslot
-@endcomponent
 
 <!-- Content area -->
 <div class="content">

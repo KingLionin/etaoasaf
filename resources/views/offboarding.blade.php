@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    @component('components.breadcrumb')
-        @slot('title') EMPLOYEE OFFBOARDING @endslot
-    @endcomponent
+   
 
     <div class="content">
 

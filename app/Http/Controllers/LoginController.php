@@ -8,31 +8,43 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // For Login
-    public function login() {
+    /**
+     * Show the login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function login()
+    {
         return view('auth/login');
     }
-    public function loginvalidation(Request $request)
+
+    /**
+     * Validate and process the login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function loginValidation(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->route('etao.dashboard');
-            
-        }else {
+        } else {
+            // Check if user exists with provided email
             $userExists = User::where('email', $credentials['email'])->exists();
 
             if ($userExists) {
-             return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect Password']);
+                return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect Password']);
             } else {
-            return redirect()->back()->withInput()->withErrors(['email' => 'Email does not exist!']);
+                return redirect()->back()->withInput()->withErrors(['email' => 'Email does not exist!']);
             }
         }
     }

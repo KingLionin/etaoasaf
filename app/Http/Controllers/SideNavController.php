@@ -23,7 +23,7 @@ class SideNavController extends Controller
     }
 
     // For Dashboard
-    public function etaoashboard()
+    public function etaodashboard()
     {
         return view('etao', $this->getOffboardingRequests());
     }

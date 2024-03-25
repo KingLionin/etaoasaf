@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-  @component('components.breadcrumb')
-        @slot('title') REQUESTS  @endslot
-    @endcomponent
 
      <div class="content">
 
