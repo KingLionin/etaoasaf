@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     // For Login
     public function login() {
-        return view('auth.login');
+        return view('auth/login');
     }
     public function loginvalidation(Request $request)
     {
@@ -25,8 +25,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             return redirect()->route('etao.dashboard');
-        }
-        else {
+            
+        }else {
             $userExists = User::where('email', $credentials['email'])->exists();
 
             if ($userExists) {

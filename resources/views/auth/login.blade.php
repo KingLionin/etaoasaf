@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="text-center mb-3">
                     <div class="d-inline-flex align-items-center justify-content-center mb-4 mt-2">
-                        <img src="{{URL::asset('assets/images/logo_icon.svg')}}" class="h-48px" alt="">
+                        <img src="{{URL::asset('assets/images/logo_icon.svg')}}" class="h-48px" alt="Logo">
                     </div>
                     <h5 class="mb-0">Login to your account</h5>
                     <span class="d-block text-muted">Enter your credentials below</span>
