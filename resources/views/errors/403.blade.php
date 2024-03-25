@@ -18,7 +18,7 @@
 
         <!-- Error content -->
         <div class="text-center">
-            <a href="/index" class="btn btn-primary">
+            <a href="{{ route('etao.dashboard') }}" class="btn btn-primary">
                 <i class="ph-house me-2"></i>
                 Return to dashboard
             </a>
