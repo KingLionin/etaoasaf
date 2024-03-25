@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user(); // This route will return the authenticated user
+    });
 });
+
+Route::get('offboarding/requests/count', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'count'])->name('offboarding.requests.count');
+Route::post('receive-offboarding-request', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'receive'])->name('receive-offboarding-request');
+
