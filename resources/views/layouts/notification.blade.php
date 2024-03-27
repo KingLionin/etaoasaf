@@ -11,7 +11,7 @@
         <div class="bg-light fw-medium py-2 px-3">New offboarding requests</div>
         <div class="p-3">
             @forelse ($newOffboardingRequests as $request)
-                <a href="#" class="notification-item" data-bs-toggle="modal" data-bs-target="#modal_form_request_view_{{ $request->id }}">
+                <a href="employee_id={{ $request->id }}" id="newrequestitem" class="notification-item" data-bs-toggle="modal" data-bs-target="#modal_form_request_view_{{ $request->id }}">
                     <div class="d-flex align-items-start">
                         <div class="me-3">
                             <div class="bg-primary bg-opacity-10 text-white rounded-pill">
@@ -50,4 +50,6 @@
 </div>
 <!-- /notifications -->
 
+
 @include('components.request-modals')
+@include('components.employee-manager-approval')

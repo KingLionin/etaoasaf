@@ -9,8 +9,8 @@
 
             <div class="navbar-brand flex-1 flex-lg-0">
                 <a href="index" class="d-inline-flex align-items-center">
-                    <img src="{{URL::asset('assets/images/logo_icon.svg')}}" alt="">
-                    <img src="{{URL::asset('assets/images/logo_text_light.svg')}}" class="d-none d-sm-inline-block h-16px ms-3" alt="">
+                    <img src="{{URL::asset('images/hrlogosvg.svg')}}" alt="svg_logo" style="width:50px;height:50px;" />
+                    <img src="{{URL::asset('assets/images/logo_text_light.svg')}}" class="d-none d-sm-inline-block h-16px ms-3" alt="svg_text" />
                 </a>
             </div>
 
@@ -33,7 +33,11 @@
                 <li class="nav-item nav-item-dropdown-lg dropdown ms-lg-2">
                     <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
                         <div class="status-indicator-container">
-                            <img src="#" class="w-32px h-32px rounded-pill" alt="">
+                            @if(auth()->user()->image)
+                                <img  class="w-32px h-32px rounded-pill" alt="" src="{{ asset('storage/' . auth()->user()->image) }}" alt="Profile_Image">
+                            @else
+                                <img  class="w-32px h-32px rounded-pill" alt="" src="{{ URL::asset('images/default-profile-picture.jpg') }}"  alt="Default_Profile_Image">
+                            @endif
                             <span class="status-indicator bg-success"></span>
                         </div>
                         <span class="d-none d-lg-inline-block mx-lg-2">Jefferson</span>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\OffboardingRequest;
-use App\Models\Employee;
 use App\Http\Controllers\Controller;
 
 class OffboardingRequestsController extends Controller
@@ -23,22 +22,40 @@ class OffboardingRequestsController extends Controller
                 'files.*' => 'file|max:104857600',
             ]);
 
-            // Retrieve employee details
-            $employee = Employee::findOrFail($validatedData['employee_id']);
+            // Check if files were uploaded
+            if ($request->hasFile('files')) {
+                // Handle file uploads
+                $fileNames = $this->handleFileUploads($request->file('files'));
+                // Convert file names to a comma-separated string
+                $fileNamesString = implode(',', $fileNames);
+            } else {
+                $fileNamesString = ''; // Set empty string if no files were uploaded
+            }
 
-            // Handle file uploads
-            $fileNames = $this->handleFileUploads($request);
+            // Remove 'files' key from validated data
+            unset($validatedData['files']);
 
-            // Add employee details to validated data
-            $validatedData = $this->addEmployeeDetails($employee, $validatedData);
-
-            // Create offboarding request
-            OffboardingRequest::create($validatedData);
+            // Create offboarding request with merged file names string
+            OffboardingRequest::create(array_merge($validatedData, ['files' => $fileNamesString]));
 
             return response()->json(['message' => 'Offboarding request received successfully'], 200);
         } catch (\Exception $errors) {
             return response()->json(['error' => $errors->getMessage()], 500);
         }
+    }
+
+    private function handleFileUploads($files): array
+    {
+        $fileNames = [];
+
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                $path = $file->store('offboarding_files');
+                $fileNames[] = $file->getClientOriginalName();
+            }
+        }
+
+        return $fileNames;
     }
 
     public function count()
@@ -49,30 +66,5 @@ class OffboardingRequestsController extends Controller
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
-    }
-
-    private function handleFileUploads(Request $request): array
-    {
-        $fileNames = [];
-
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $path = $file->store('offboarding_files');
-                $fileNames[] = $file->getClientOriginalName();
-            }
-        }
-
-        return $fileNames;
-    }
-
-    private function addEmployeeDetails(Employee $employee, array $validatedData): array
-    {
-        $validatedData['employee_lastname'] = $employee->employee_lastname;
-        $validatedData['employee_firstname'] = $employee->employee_firstname;
-        $validatedData['employee_middlename'] = $employee->employee_middlename;
-        $validatedData['department'] = $employee->department;
-        $validatedData['position'] = $employee->position;
-
-        return $validatedData;
     }
 }

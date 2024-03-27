@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Profile')
 @section('content')
 
 <!-- Content area -->
@@ -17,16 +18,15 @@
                 <div class="card">
                     <div class="sidebar-section-body text-center">
                         <div class="card-img-actions d-inline-block mb-3">
-                            <img class="img-fluid rounded-circle" src="{{URL::asset('assets/images/demo/users/face11.jpg')}}" width="150" height="150" alt="">
-                            <div class="card-img-actions-overlay card-img rounded-circle">
-                                <a href="#" class="btn btn-outline-white btn-icon rounded-pill">
-                                    <i class="ph-pencil"></i>
-                                </a>
-                            </div>
+                            @if(auth()->user()->image)
+                                <img class="img-fluid rounded-circle" src="{{ asset('storage/' . auth()->user()->image) }}" width="150" height="150" alt="Profile_Image">
+                            @else
+                                <img class="img-fluid rounded-circle" src="{{ URL::asset('images/default-profile-picture.jpg') }}" width="150" height="150" alt="Default_Profile_Image">
+                            @endif
                         </div>
 
-                        <h6 class="mb-0">Victoria Davidson</h6>
-                        <span class="text-muted">Head of UX</span>
+                        <h6 class="mb-0">{{ auth()->user()->employee->employee_firstname }} {{ auth()->user()->employee->employee_middlename }} {{ auth()->user()->employee->employee_lastname }} </h6>
+                        <span class="text-muted">{{ auth()->user()->employee->department }} {{ auth()->user()->employee->position }}</span>
                     </div>
 
                     <ul class="nav nav-sidebar">
@@ -61,58 +61,39 @@
                 <!-- Profile info -->
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Profile information</h5>
+                        <h4 class="mb-0">Profile information</h4>
                     </div>
 
                     <div class="card-body">
-                        <form action="#">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" value="Victoria" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Full name</label>
-                                        <input type="text" value="Smith" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Address line 1</label>
-                                        <input type="text" value="Ring street 12" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Address line 2</label>
-                                        <input type="text" value="building D, flat #67" class="form-control">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->address }}" readonly>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">City</label>
-                                        <input type="text" value="Munich" class="form-control">
+                                    <label class="form-label">Birthdate</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">
+                                            <i class="ph-calendar"></i>
+                                        </span>
+                                        <input type="text" class="form-control datepicker-basic" placeholder="Pick a date" value="{{ auth()->user()->employee->date_of_birth }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        <label class="form-label">State/Province</label>
-                                        <input type="text" value="Bayern" class="form-control">
+                                        <label class="form-label">Civil Status</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->civil_status }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        <label class="form-label">ZIP code</label>
-                                        <input type="text" value="1031" class="form-control">
+                                        <label class="form-label">Age</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->age }} years old" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -121,90 +102,19 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input type="text" readonly="readonly" value="victoria@smith.com" class="form-control">
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->email }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Your country</label>
-                                        <select class="form-select">
-                                            <option value="germany" selected>Germany</option>
-                                            <option value="france">France</option>
-                                            <option value="spain">Spain</option>
-                                            <option value="netherlands">Netherlands</option>
-                                            <option value="other">...</option>
-                                            <option value="uk">United Kingdom</option>
-                                        </select>
+                                        <label class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->contact_number }}" readonly>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Phone #</label>
-                                        <input type="text" value="+99-99-9999-9999" class="form-control">
-                                        <div class="form-text text-muted">+99-99-9999-9999</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Upload profile image</label>
-                                        <input type="file" class="form-control">
-                                        <div class="form-text text-muted">Accepted formats: gif, png, jpg. Max file size 2Mb</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
                 <!-- /profile info -->
-
-
-                <!-- Account settings -->
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Account settings</h5>
-                    </div>
-
-                    <div class="card-body">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" value="Vicky" readonly class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Current password</label>
-                                        <input type="password" value="password" readonly class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">New password</label>
-                                        <input type="password" placeholder="Enter new password" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Repeat password</label>
-                                        <input type="password" placeholder="Repeat new password" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
 
             </div>
         </div>
@@ -218,12 +128,12 @@
 
 @endsection
 @section('center-scripts')
-<script src="{{URL::asset('assets/js/vendor/visualization/echarts/echarts.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/vendor/ui/fullcalendar/main.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/ui/moment/moment.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/pickers/daterangepicker.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/pickers/datepicker.min.js')}}"></script>
 @endsection
 @section('scripts')
 <script src="{{URL::asset('assets/demo/pages/user_pages_profile.js')}}"></script>
-<script src="{{URL::asset('assets/demo/charts/echarts/bars/tornado_negative_stack.js')}}"></script>
-<script src="{{URL::asset('assets/demo/charts/pages/profile/balance_stats.js')}}"></script>
-<script src="{{URL::asset('assets/demo/charts/pages/profile/available_hours.js')}}"></script>
+<script src="{{URL::asset('assets/demo/pages/picker_date.js')}}"></script>
 @endsection

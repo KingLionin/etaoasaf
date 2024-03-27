@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-color-theme="light" >
+<html lang="en" dir="ltr" data-color-theme="light">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Limitless - Responsive Web Application Kit by Themesbrand</title>
-    <link rel="icon" type="image/x-icon" href="{{URL::asset('assets/images/favicon.svg')}}">
+    <title>ETaOaSaF: @yield('title')</title>
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
 
-   @include('layouts.head-css')
+    @include('layouts.head-css')
 
 </head>
 
@@ -40,7 +41,7 @@
 
     <!-- right-sidebar content -->
     @include('layouts.right-sidebar')
-    
+
     <!-- notification -->
     @include('layouts.notification')
 

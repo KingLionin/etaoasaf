@@ -20,7 +20,7 @@ class OffboardingRequest extends Model
         'send_date',
         'receive_date',
     ];
-
+    
     public function employee()
     {
         return $this->belongsTo(Employee::class);

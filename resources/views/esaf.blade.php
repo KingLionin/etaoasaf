@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'ESaF Dashboard')
 @section('content')
 
 <div class="content">

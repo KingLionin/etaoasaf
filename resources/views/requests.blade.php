@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Requests')
 @section('content')
 
      <div class="content">
@@ -61,7 +62,6 @@
 
         <!--- Modal components --->
        @include('components.construct-request-modal')
-       @include('components.employee-manager-approval')
     </div>
     <!-- /content area -->
 
