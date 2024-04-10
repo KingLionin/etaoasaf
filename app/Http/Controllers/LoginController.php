@@ -9,22 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /**
-     * Show the login form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function login()
-    {
-        return view('auth/login');
-    }
-
-     /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-
-    /**
      * Validate and process the login request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,23 +21,22 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
+        // Attempt to authenticate the user using the provided credentials
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            // Authentication successful, regenerate session and redirect to dashboard
             $request->session()->regenerate();
-
             return redirect()->route('dashboard');
-
-        } else {
-
-            // Check if user exists with provided email
-            $userExists = User::where('email', $credentials['email'])->exists();
-
-            if ($userExists) {
-                return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect Password']);
-            } else {
-                return redirect()->back()->withInput()->withErrors(['email' => 'Email does not exist!']);
-            }
         }
+
+        // Authentication failed, check if a user with the provided email exists
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            // No user with provided email exists
+            return redirect()->back()->withInput()->withErrors(['email' => 'Email does not exist!']);
+        }
+
+        // A user with provided email exists, but authentication failed
+        return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect Password']);
     }
 }
