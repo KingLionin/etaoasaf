@@ -15,7 +15,6 @@
  * 
  */
 
-
 // For the notification count
 function fetchNotificationCount() {
     // Make an AJAX request to fetch count

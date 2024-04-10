@@ -2,7 +2,6 @@
 @section('title', 'Offboarding')
 @section('content')
    
-
     <div class="content">
 
         <!-- Basic datatable -->
@@ -28,7 +27,7 @@
                             <td>{{ $employee->last_name }}</td> <!--- employee_lastname  --->
                             <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
                             <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  --->
-                            <td>{{ $employee->job_role->department->name }} <!--- department->department_name --->
+                            <td>{{ $employee->job_role->department->name }} </td> <!--- department->department_name --->
                             <td>{{ $employee->job_role->job_position }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
