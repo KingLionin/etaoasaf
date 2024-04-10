@@ -650,3 +650,77 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', function () {
     App.initAfterLoad();
 });
+
+/************************************************************************************************************************/
+
+/* 
+ *
+ * Navbar layout
+ * 
+ */
+
+// For the notification count
+function fetchNotificationCount() {
+    // Make an AJAX request to fetch count
+    $.get('/api/offboarding/requests/count', function (data) {
+        // Check if count is greater than zero
+        if (data.count > 0) {
+            // Update the count in the badge
+            $('#notification-badge').text(data.count);
+        } else {
+            // Hide the badge if count is zero
+            $('#notification-badge').text('').hide();
+        }
+    });
+}
+
+// Call the function on page load
+$(document).ready(function () {
+    fetchNotificationCount();
+});
+
+/************************************************************************************************************************/
+
+/* 
+ *
+ * Termination page
+ * 
+ */
+
+
+/* Termination Modal View Form */
+$(document).ready(function () {
+    console.log("DOM Content Loaded");
+
+    // Functionality for Next Button
+    $('#btn_next').on('click', function () {
+        var currentSection = $('.modal-body > .modal-section:not([style*="display: none"])');
+        if (currentSection.length) {
+            currentSection.hide();
+
+            var nextSection = currentSection.next('.modal-section');
+            if (!nextSection.length) {
+                nextSection = $('.modal-body > .modal-section:first-child');
+            }
+            nextSection.show();
+        } else {
+            console.error("Current section not found.");
+        }
+    });
+
+    // Functionality for Previous Button
+    $('#btn_previous').on('click', function () {
+        var currentSection = $('.modal-body > .modal-section:not([style*="display: none"])');
+        if (currentSection.length) {
+            currentSection.hide();
+
+            var previousSection = currentSection.prev('.modal-section');
+            if (!previousSection.length) {
+                previousSection = $('.modal-body > .modal-section:last-child');
+            }
+            previousSection.show();
+        } else {
+            console.error("Current section not found.");
+        }
+    });
+});

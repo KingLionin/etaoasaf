@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ETaOaSaF: Login</title>
-    <link rel="icon" type="image/x-icon" href="{{URL::asset('assets/images/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
 
     @include('layouts.head-css')
 
@@ -33,8 +34,11 @@
     </div>
     <!-- /page content -->
 
-  <!--- right-sidebar content --->
-  @include('layouts.right-sidebar')
-  
+    <!--- right-sidebar content --->
+    @include('layouts.right-sidebar')
+
+    @include('layouts.head-js')
+
 </body>
+
 </html>

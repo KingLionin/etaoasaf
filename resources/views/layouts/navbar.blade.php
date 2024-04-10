@@ -38,7 +38,7 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <a href="{{ route('profile.page') }}" class="dropdown-item">
                             <i class="ph-user-circle me-2"></i>
-                            My profile
+                            {{ __('My Profile') }}
                         </a>
                         <a class="dropdown-item" href="{{ route('backtologin.page') }}">
                             <i class="ph-sign-out me-2"></i> {{ __('Logout') }}

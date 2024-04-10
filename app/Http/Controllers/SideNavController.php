@@ -67,6 +67,6 @@ class SideNavController extends Controller
     {
         Session::flush();
         Auth::logout();
-        return redirect('login');
+        return redirect('auth/login');
     }
 }

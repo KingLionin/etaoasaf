@@ -25,25 +25,8 @@
                             @endif
                         </div>
 
-                        <h6 class="mb-0">{{ auth()->user()->employee->employee_firstname }} {{ auth()->user()->employee->employee_middlename }} {{ auth()->user()->employee->employee_lastname }} </h6>
-                        <span class="text-muted">{{ auth()->user()->employee->department }} {{ auth()->user()->employee->position }}</span>
+                        <h6 class="mb-0">{{ auth()->user()->employee->first_name }} {{ auth()->user()->employee->middle_name }} {{ auth()->user()->employee->last_name }} </h6>
                     </div>
-
-                    <ul class="nav nav-sidebar">
-                        <li class="nav-item">
-                            <a href="#profile" class="nav-link active" data-bs-toggle="tab">
-                                <i class="ph-user me-2"></i>
-                                My profile
-                            </a>
-                        </li>
-                        <li class="nav-item-divider"></li>
-                        <li class="nav-item">
-                            <a href="login_advanced" class="nav-link" data-bs-toggle="tab">
-                                <i class="ph-sign-out me-2"></i>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <!-- /navigation -->
 
@@ -66,34 +49,31 @@
 
                     <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->address }}" readonly>
+                                        <label class="form-label">Department</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->department->name }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Position</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->job_position }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Job Name</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->name }} years old" readonly>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-4">
-                                    <label class="form-label">Birthdate</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">
-                                            <i class="ph-calendar"></i>
-                                        </span>
-                                        <input type="text" class="form-control datepicker-basic" placeholder="Pick a date" value="{{ auth()->user()->employee->date_of_birth }}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Civil Status</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->civil_status }}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Age</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->age }} years old" readonly>
+                                        <label class="form-label">Email</label>
+                                        <textarea class="form-control" readonly>{{ auth()->user()->employee->job_role->department->descrition }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -107,8 +87,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Contact Number</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->contact_number }}" readonly>
+                                        <label class="form-label">Job Status</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->status }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -127,13 +107,11 @@
 <!-- /content area -->
 
 @endsection
+
 @section('center-scripts')
-<script src="{{URL::asset('assets/js/vendor/ui/fullcalendar/main.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/vendor/ui/moment/moment.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/vendor/pickers/daterangepicker.js')}}"></script>
-<script src="{{URL::asset('assets/js/vendor/pickers/datepicker.min.js')}}"></script>
+
 @endsection
+
 @section('scripts')
 <script src="{{URL::asset('assets/demo/pages/user_pages_profile.js')}}"></script>
-<script src="{{URL::asset('assets/demo/pages/picker_date.js')}}"></script>
 @endsection
