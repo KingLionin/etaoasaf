@@ -18,6 +18,12 @@ class LoginController extends Controller
         return view('auth/login');
     }
 
+     /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+
     /**
      * Validate and process the login request.
      *
@@ -36,8 +42,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('etao.dashboard');
+            return redirect()->route('dashboard');
+
         } else {
+
             // Check if user exists with provided email
             $userExists = User::where('email', $credentials['email'])->exists();
 

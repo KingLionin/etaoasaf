@@ -10,21 +10,13 @@
             <div class="navbar-brand flex-1 flex-lg-0">
                 <a href="index" class="d-inline-flex align-items-center">
                     <img src="{{URL::asset('images/hrlogosvg.svg')}}" alt="svg_logo" style="width:50px;height:50px;" />
-                    <img src="{{URL::asset('assets/images/logo_text_light.svg')}}" class="d-none d-sm-inline-block h-16px ms-3" alt="svg_text" />
+                    <span class="d-none d-sm-inline-block h-30px ms-3" style="font-family: Inter-Black;font-size: 25px;">WORKFOLIO HUMAN RESOURCE</span>
                 </a>
             </div>
 
-            <ul class="nav flex-row">
-                <li class="nav-item d-lg-none">
-                    <a href="#navbar_search" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="collapse">
-                        <i class="ph-magnifying-glass"></i>
-                    </a>
-                </li>
-            </ul>
-
             <ul class="nav flex-row justify-content-end order-1 order-lg-2">
                 <li class="nav-item">
-                    <a class="navbar-nav-link navbar-nav-link-icon rounded-pill animation" data-animation="swing" data-bs-toggle="offcanvas" data-bs-target="#notifications">
+                    <a class="navbar-nav-link navbar-nav-link-icon rounded-pill animation" data-bs-toggle="offcanvas" data-bs-target="#notifications">
                         <i class="ph-bell"></i>
                         <span id="notification-badge" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1"></span>
                     </a>

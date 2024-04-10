@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offboarding_requests', function (Blueprint $table) {
+        Schema::connection('mysql')->create('offboarding_requests', function (Blueprint $table) {
+            
             $table->id();
-            $table->unsignedBigInteger('employee_id');
+            $table->integer('employee_id');
             $table->enum('portal_type', ['Employee Self-Service Portal','Manager-Self-Service Portal']);
-            $table->enum('type_of_request', ['Resignation', 'Retirement', 'Contractual Breach', 'Offload', 'Involuntary Resignation'])->default('Resignation');
-            $table->enum('status', ['New', 'Approved', 'Pending', 'Denied'])->default('New');
+            $table->enum('type_of_request', ['Resignation', 'Retirement', 'Contractual Breach', 'Offload', 'Involuntary Resignation']);
+            $table->enum('status', ['New', 'Approved', 'Pending', 'Denied']);
             $table->longText('description')->nullable();
             $table->string('files')->nullable();
             $table->timestamps();
-
-            $table->foreign('employee_id')->references('id')->on('employees');
         });
+
     }
 
     /**

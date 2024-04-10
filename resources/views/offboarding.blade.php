@@ -25,14 +25,14 @@
                 <tbody>
                 @foreach($employees as $employee)
                         <tr>
-                            <td>{{ $employee->employee_lastname }}</td>
-                            <td>{{ $employee->employee_firstname }}</td>
-                            <td>{{ $employee->employee_middlename }}</td>
-                            <td>{{ $employee->department }}</td>
-                            <td>{{ $employee->position }}</td>
+                            <td>{{ $employee->last_name }}</td> <!--- employee_lastname  --->
+                            <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
+                            <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  --->
+                            <td>{{ $employee->job_role->department->name }} <!--- department->department_name --->
+                            <td>{{ $employee->job_role->job_position }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
-                                    <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view">
+                                    <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view" disabled>
                                         <i class="ph-user-circle-minus"></i>
                                     </button>
                                 </div>
@@ -83,6 +83,7 @@
     </div>
 
 @endsection
+
 
 @section('center-scripts')
     <script src="{{URL::asset('assets/js/jquery/jquery.min.js')}}"></script>

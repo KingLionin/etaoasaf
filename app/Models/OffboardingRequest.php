@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Main\Employee;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OffboardingRequest extends Model
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory;
 
+    protected $connection = 'mysql';
+    protected $table = 'offboarding_requests';
     protected $fillable = [
         'employee_id',
         'portal_type',

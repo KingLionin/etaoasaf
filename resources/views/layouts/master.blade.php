@@ -33,6 +33,8 @@
             </div>
             <!-- /inner content -->
 
+            @yield('survey-footer-content')
+
         </div>
         <!-- /main content -->
 

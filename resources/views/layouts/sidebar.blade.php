@@ -32,17 +32,11 @@
                             <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Main</div>
                             <i class="ph-dots-three sidebar-resize-show"></i>
                         </li>
-                        <li class="nav-item nav-item-submenu">
-                            <a href="index" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard') }}" class="nav-link">
                                 <i class="ph-house"></i>
-                                <span>
-                                    Dashboard
-                                </span>
+                                <span>Dashboard</span>
                             </a>
-                             <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="{{ route('etao.dashboard') }}" class="nav-link"><i class="ph-diamonds-four"></i>Termination and Offboarding</a></li>
-                                <li class="nav-item"><a href="{{ route('esaf.dashboard') }}" class="nav-link"><i class="ph-diamonds-four"></i>Employee Survey and Feedback</a></li>
-                            </ul>
                         </li>
 
                         <!-- Forms -->
@@ -58,7 +52,7 @@
                             <ul class="nav-group-sub collapse">
                                 <li class="nav-item"><a href="{{ route('offboarding.page') }}" class="nav-link"><i class="ph-table"></i>Offboarding Table</a></li>
                                 <li class="nav-item"><a href="{{ route('requests.page') }}" class="nav-link">
-                                <i class="ph-clipboard-text"></i>
+                                <i class="ph-git-pull-request"></i>
                                 <span>Requests</span>
                             </a>
                         </li>
@@ -77,15 +71,11 @@
                             <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Employee Surveys and Feedback</div>
                             <i class="ph-dots-three sidebar-resize-show"></i>
                         </li>
-                        <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ route('survey.page') }}" class="nav-link">
                                 <i class="ph-clipboard"></i>
                                 <span>Survey</span>
                             </a>
-                            <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="#" class="nav-link"><i class="ph-pencil-simple-line"></i>Create Survey</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link"><i class="ph-table"></i>Survey Table</a></li>
-                            </ul>
                         </li>
                         <li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link">
@@ -93,7 +83,7 @@
                                 <span>Feedback</span>
                             </a>
                             <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="#" class="nav-link"><i class="ph-table"></i>Employee Responses Table</a></li>
+                                <li class="nav-item"><a href="{{ route('employeeresponse.page') }}" class="nav-link"><i class="ph-table"></i>Employee Responses Table</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link"><i class="ph-chart-bar-horizontal"></i>Survey Analytics</a></li>
                             </ul>
                         </li>

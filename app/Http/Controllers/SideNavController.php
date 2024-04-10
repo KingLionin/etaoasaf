@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
-use App\Models\Employee;
+use App\Models\Main\Employee;
 use App\Models\OffboardingRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,20 +23,14 @@ class SideNavController extends Controller
     }
 
     // For Dashboard
-    public function etaodashboard()
+    public function dashboard()
     {
-        return view('etao', $this->getOffboardingRequests());
+        return view('dashboard', $this->getOffboardingRequests());
     }
-
-    public function esafdashboard()
-    {
-        return view('esaf', $this->getOffboardingRequests());
-    }
-
     public function offboardingpage()
-    {
-        $employees = Employee::all();
-        return view('offboarding', array_merge($this->getOffboardingRequests(), ['employees' => $employees]));
+    { 
+        $employees = Employee::with('job_role.department')->get();
+        return view('offboarding', array_merge($this->getOffboardingRequests(), compact('employees')));
     }
 
     public function terminationpage()
@@ -51,7 +45,21 @@ class SideNavController extends Controller
 
     public function requestspage()
     {
-        return view('requests', $this->getOffboardingRequests());
+        $notifications = OffboardingRequest::all();
+        return view('requests', array_merge($this->getOffboardingRequests(), compact('notifications')));
+    }
+
+    public function surveypage()
+    {
+        return view('survey-table', $this->getOffboardingRequests());
+    }
+    public function createsurveyforms()
+    {
+        return view('create-survey', $this->getOffboardingRequests());
+    }
+    public function employeeresponse()
+    {
+        return view('employee-response', $this->getOffboardingRequests());
     }
 
     // For Signout
