@@ -9,14 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    
+    public function login()
+    {
+         return view('auth/login');
+    }
+
     /**
      * Validate and process the login request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-
-        public function loginValidation(Request $request)
+    public function loginValidation(Request $request)
         {
             $request->validate([
                 'email' => 'required|email',
