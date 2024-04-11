@@ -17,7 +17,7 @@
                         <th>Firstname</th>
                         <th>Middlename</th>
                         <th>Department</th>
-                        <th>Position</th>
+                        <th>Role</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -28,7 +28,7 @@
                             <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
                             <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  --->
                             <td>{{ $employee->job_role->department->name }} </td> <!--- department->department_name --->
-                            <td>{{ $employee->job_role->job_position }}</td> <!--- position->position_name --->
+                            <td>{{ $employee->job_role->name }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
                                     <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view" disabled>
