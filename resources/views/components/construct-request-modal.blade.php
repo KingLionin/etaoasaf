@@ -15,17 +15,17 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label class="form-label">Firstname</label>
-                                        <input type="text" placeholder="John" class="form-control" value="{{ auth()->user()->employee->employee_firstname }}" readonly>
+                                        <input type="text" placeholder="John" class="form-control" value="{{ auth()->user()->employee->first_name }}" readonly>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label class="form-label">Middlename</label>
-                                        <input type="text" placeholder="Katarina" class="form-control" value="{{ auth()->user()->employee->employee_middlename }}" readonly>
+                                        <input type="text" placeholder="Katarina" class="form-control" value="{{ auth()->user()->employee->middle_name }}" readonly>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label class="form-label">Lastname</label>
-                                        <input type="text" placeholder="Doe" class="form-control" value="{{ auth()->user()->employee->employee_lastname }}" readonly>
+                                        <input type="text" placeholder="Doe" class="form-control" value="{{ auth()->user()->employee->last_name }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -34,12 +34,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="form-label">Department</label>
-                                        <input type="text" placeholder="Enter your Department" class="form-control" value="{{ auth()->user()->employee->department }}" readonly>
+                                        <input type="text" placeholder="Enter your Department" class="form-control" value="{{ auth()->user()->employee->job_role->department->name }}" readonly>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <label class="form-label">Position</label>
-                                        <input type="text" placeholder="Enter your position" class="form-control" value="{{ auth()->user()->employee->position }}" readonly>
+                                        <input type="text" placeholder="Enter your position" class="form-control" value="{{ auth()->user()->employee->job_role->name }}" readonly>
                                     </div>
                                 </div>
                             </div>

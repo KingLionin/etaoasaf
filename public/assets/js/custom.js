@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         textField.type = "text";
         textField.placeholder = "Enter answer";
         textField.classList.add('form-control');
+        textField.disabled = true;
         questionConstructor.appendChild(textField);
     }
 
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textarea = document.createElement('textarea');
         textarea.placeholder = "Enter answer";
         textarea.classList.add('form-control', 'elastic');
+        textarea.disabled = true;
         questionConstructor.appendChild(textarea);
     }
 
@@ -75,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         radioButton.type = "radio";
         radioButton.classList.add('form-check-input');
         radioButton.style.marginRight = '10px';
+        radioButton.disabled = true;
         optionWrapperRadio.appendChild(radioButton);
 
         // Create corresponding textfield
@@ -134,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         checkBox.type = "checkbox";
         checkBox.classList.add('form-check-input');
         checkBox.style.marginRight = '10px';
+        checkBox.disabled = true;
         optionWrapperCheckbox.appendChild(checkBox);
 
         // Create corresponding textfield
@@ -333,6 +337,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    // Function to update save button based on the number of question cards
+    function updateSaveButton() {
+        const questionCardsCount = document.querySelectorAll('.question-card').length;
+        const saveButton = document.querySelector('.save-survey-button');
+        if (questionCardsCount >= 2) {
+            saveButton.removeAttribute('disabled');
+        } else {
+            saveButton.setAttribute('disabled', 'disabled');
+        }
+    }
+
     // Function to update question constructor for textfield
     function updateQuestionConstructorForText(questionConstructor) {
         questionConstructor.innerHTML = ""; // Clear previous content
@@ -342,6 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
         textField.type = "text";
         textField.placeholder = "Enter answer";
         textField.classList.add('form-control');
+        textField.disabled = true;
         questionConstructor.appendChild(textField);
     }
 
@@ -353,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textarea = document.createElement('textarea');
         textarea.placeholder = "Enter answer";
         textarea.classList.add('form-control', 'elastic');
+        textarea.disabled = true;
         questionConstructor.appendChild(textarea);
     }
 
@@ -366,6 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
         radioButton.type = "radio";
         radioButton.classList.add('form-check-input');
         radioButton.style.marginRight = '10px';
+        radioButton.disabled = true;
         optionWrapperRadio.appendChild(radioButton);
 
         // Create corresponding textfield
@@ -424,6 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
         checkBox.type = "checkbox";
         checkBox.classList.add('form-check-input');
         checkBox.style.marginRight = '10px';
+        checkBox.disabled = true;
         optionWrapperCheckbox.appendChild(checkBox);
 
         // Create corresponding textfield
@@ -669,7 +688,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <div class="input-fields" data-question-number="${questionCounter}">
                                         <!-- This is where the dynamically shown input field will be placed -->
                                         <!-- Default input field (textfield) -->
-                                        <input type="text" placeholder="Enter answer" class="form-control" />
+                                        <input type="text" placeholder="Enter answer" class="form-control" disabled/>
                                     </div>
                                 </div>
                             </div>`;
@@ -721,12 +740,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+
+        // Call updateSaveButton after adding a question card
+        updateSaveButton();
     }
 
     // Function to delete the question card
     function deleteQuestionCard(questionCard) {
         questionCounter--; // Decrement question counter
         questionCard.remove();
+
+        // Call updateSaveButton after deleting a question card
+        updateSaveButton();
     }
 
     // Function to update question numbers
@@ -743,7 +768,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listener for Add Question button
     const addQuestionButton = document.querySelector('.add-question-button');
     addQuestionButton.addEventListener('click', addQuestionCard);
-    
+
+    // Function to enable/disable save button when the page loads
+    updateSaveButton();
+
     // Event listener to hide tooltip when delete icon is clicked
     const questionCardsContainer = document.querySelector('.question-cards-container');
     questionCardsContainer.addEventListener('click', function (event) {
@@ -756,5 +784,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
 
 

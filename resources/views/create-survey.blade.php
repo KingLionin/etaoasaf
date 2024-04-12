@@ -61,7 +61,7 @@
                     <div class="input-fields" id="questionConstructor">
                         <!-- This is where the dynamically shown input field will be placed -->
                         <!-- Default input field (textfield) -->
-                        <input type="text" placeholder="Enter answer" class="form-control" />
+                        <input type="text" placeholder="Enter answer" class="form-control" disabled/>
                     </div>
                 </div>
             </div>
@@ -77,12 +77,21 @@
 @section('survey-footer-content')
 @include('components.survey-footer')
 @endsection
+
+
 @endsection
 
 @section('center-scripts')
-
+<script src="{{URL::asset('assets/js/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/forms/selects/select2.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/ui/moment/moment.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/pickers/daterangepicker.js')}}"></script>
+<script src="{{URL::asset('assets/js/vendor/pickers/datepicker.min.js')}}"></script>
 @endsection
 
 @section('scripts')
+ <script src="{{URL::asset('assets/js/custom.js')}}"></script>
  <script src="{{URL::asset('assets/demo/pages/components_tooltips.js')}}"></script>
+ <script src="{{URL::asset('assets/demo/pages/form_select2.js')}}"></script>
+ <script src="{{URL::asset('assets/demo/pages/picker_date.js')}}"></script>
 @endsection

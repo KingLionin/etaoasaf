@@ -63,10 +63,10 @@ class SideNavController extends Controller
     }
 
     // For Signout
-    public function logout()
+    public function logoutprocess()
     {
         Session::flush();
         Auth::logout();
-        return redirect('auth/login');
+        return redirect('/etaoasaf/login');
     }
 }

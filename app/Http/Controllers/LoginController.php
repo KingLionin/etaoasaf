@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Providers\RouteServiceProvider;
+
 
 class LoginController extends Controller
 {
-    /**
+     /**
      * Show the login form.
      *
      * @return \Illuminate\View\View
      */
-    public function login()
+    public function loginpage()
     {
-        return view('auth.login');
+        return view('auth/login');
     }
 
     /**
@@ -29,34 +29,33 @@ class LoginController extends Controller
     public function loginValidation(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!User::where('username', $value)->exists()) {
+                        $fail('User does not exist!');
+                    }
+                }
+            ],
             'password' => 'required',
         ]);
+        
+        $credentials = $request->only('username', 'password');
 
-        // Retrieve employee record with the provided email
-        $employee = DB::connection('main')
-            ->table('employees')
-            ->where('email', $request->email)
-            ->first();
-
-        // Check if employee exists
-        if (!$employee) {
-            return redirect()->back()->withInput()->withErrors(['email' => 'Email does not exist!']);
-        }
-
-        // Retrieve user record with the corresponding employee_id
-        $user = User::where('employee_id', $employee->id)->first();
-
-        // Check if user and password match
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Authentication successful, log in the user
-            Auth::login($user);
-            // Regenerate session and redirect to dashboard
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect(RouteServiceProvider::HOME); // Redirect to the HOME route
         }
 
-        // Authentication failed
-        return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect Password']);
+        // Check if user exists with the provided username
+        $userExists = User::where('username', $request->username)->exists();
+
+        if (!$userExists) {
+            // User with the provided username doesn't exist
+            return redirect()->back()->withInput()->withErrors(['username' => 'User does not exist']);
+        }
+
+        // Username exists but password is incorrect
+        return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect password']);
     }
 }

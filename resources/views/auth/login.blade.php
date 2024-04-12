@@ -19,13 +19,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                    <label for="username" class="form-label">{{ __('Username') }}</label>
                     <div class="form-control-feedback form-control-feedback-start">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autofocus placeholder="Enter your Email Address">
+                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" required autofocus placeholder="Enter your Username">
                         <div class="form-control-feedback-icon">
                             <i class="ph-user-circle text-muted"></i>
                         </div>
-                        @error('email')
+                        @error('username')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

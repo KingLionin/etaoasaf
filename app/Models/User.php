@@ -3,11 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Main\Employee;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Models\Main\Employee;
 
 class User extends Authenticatable
 {
@@ -27,6 +27,7 @@ class User extends Authenticatable
     
     protected $fillable = [
         'employee_id',
+        'username',
         'password',
         'avatar'
     ];
