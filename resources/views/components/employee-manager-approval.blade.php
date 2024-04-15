@@ -1,7 +1,7 @@
 <!-- Vertical form to manager approval modal -->
 @foreach($newOffboardingRequests as $request)
     <div id="modal_form_forward_manager_vertical_{{ $request->id }}" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-primary bg-text border-0 d-flex justify-content-center align-content-center">
                     <h3 class="modal-title">APPROVAL FORM</h3>
@@ -11,50 +11,6 @@
                     action="{{ route('submit-manager-approval', ['request' => $request->id]) }}"
                     method="post">
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <div class="flex-1 mb-3">
-                                <div class="fs-md text-muted mt-1">SEND BY</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label class="form-label">Firstname</label>
-                                    <input type="text" placeholder="John" class="form-control"
-                                        value="{{ auth()->user()->employee->first_name }}" disabled />
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label class="form-label">Middlename</label>
-                                    <input type="text" placeholder="Katarina" class="form-control"
-                                        value="{{ auth()->user()->employee->middle_name }}" disabled />
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label class="form-label">Lastname</label>
-                                    <input type="text" placeholder="Doe" class="form-control"
-                                        value="{{ auth()->user()->employee->last_name }}" disabled />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="form-label">Department</label>
-                                    <input type="text" placeholder="Ring street 12" class="form-control"
-                                        value="{{ auth()->user()->employee->job_role->department->name }}" disabled />
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label class="form-label">Position</label>
-                                    <input type="text" placeholder="Enter your position" class="form-control"
-                                        value="{{ auth()->user()->employee->job_role->name }}" disabled />
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr />
-
-
                         <div class="mb-3">
                             <div class="flex-1 mb-3">
                                 <div class="fs-md text-muted mt-1">REQUESTED BY</div>
@@ -101,6 +57,7 @@
                             <label class="form-label">Request Type</label>
                             <input id="requestInput" type="text" placeholder="Enter your position"
                                 value="{{ $request->type_of_request }}" class="form-control" disabled>
+                            <input type="hidden" name="type_of_request" value="{{ $request->type_of_request }}">
                         </div>
 
                         <div class="col-sm-12 mb-3">
@@ -133,7 +90,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit Manager Approval</button>
+                        <button type="submit" class="btn btn-primary" id="sweet_success">Submit Manager Approval</button>
                     </div>
                 </form>
             </div>

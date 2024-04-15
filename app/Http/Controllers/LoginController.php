@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Providers\RouteServiceProvider;
-
 
 class LoginController extends Controller
 {
-     /**
+    /**
      * Show the login form.
      *
      * @return \Illuminate\View\View
@@ -29,33 +29,22 @@ class LoginController extends Controller
     public function loginValidation(Request $request)
     {
         $request->validate([
-            'username' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!User::where('username', $value)->exists()) {
-                        $fail('User does not exist!');
-                    }
-                }
-            ],
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-        
-        $credentials = $request->only('username', 'password');
+
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $user->token = Str::random(60); // Generate a new token
+            $user->save();
+
             $request->session()->regenerate();
             return redirect(RouteServiceProvider::HOME); // Redirect to the HOME route
         }
 
-        // Check if user exists with the provided username
-        $userExists = User::where('username', $request->username)->exists();
-
-        if (!$userExists) {
-            // User with the provided username doesn't exist
-            return redirect()->back()->withInput()->withErrors(['username' => 'User does not exist']);
-        }
-
-        // Username exists but password is incorrect
-        return redirect()->back()->withInput()->withErrors(['password' => 'Incorrect password']);
+        // Authentication failed
+        return redirect()->back()->withInput()->withErrors(['email' => 'These credentials do not match our records']);
     }
 }

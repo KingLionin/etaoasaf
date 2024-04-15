@@ -93,7 +93,6 @@
 @endsection
 
 @section('center-scripts')
-<script src="{{ URL::asset('assets/js/jquery/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/vendor/tables/datatables/datatables.min.js') }}">
 </script>
 <script
@@ -123,8 +122,8 @@
 @endsection
 
 @section('scripts')
-<script src="{{ URL::asset('assets/demo/pages/datatables_basic.js') }}"></script>
 <script src="{{ URL::asset('assets/demo/pages/components_modals.js') }}"></script>
+<script src="{{ URL::asset('assets/demo/pages/datatables_basic.js') }}"></script>
 <script src="{{ URL::asset('assets/demo/pages/form_controls_extended.js') }}"></script>
 <script src="{{ URL::asset('assets/demo/pages/uploader_bootstrap.js') }}"></script>
 @endsection

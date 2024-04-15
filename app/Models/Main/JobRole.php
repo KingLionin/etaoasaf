@@ -13,15 +13,15 @@ class JobRole extends Model
 
     protected $table = 'job_roles';
 
-    protected $fillable = ['name', 'description', 'department_id', 'job_position'];
+    protected $fillable = ['name', 'description', 'department_id'];
     
     public function employee()
     {
-        return $this->hasMany(Employee::class, 'employee_id');
+        return $this->hasMany(Employee::class);
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class);
     }
 }

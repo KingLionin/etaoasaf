@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Main\Employee;
-use App\Models\Main\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\OffboardingRequest;
@@ -12,6 +11,7 @@ use App\Http\Controllers\Controller;
 
 class OffboardingRequestsController extends Controller
 {
+
     public function receive(Request $request): JsonResponse
     {
         try {
@@ -47,6 +47,7 @@ class OffboardingRequestsController extends Controller
         }
     }
 
+
     private function handleFileUploads($files): array
     {
         $fileNames = [];
@@ -65,12 +66,14 @@ class OffboardingRequestsController extends Controller
         return $fileNames;
     }
 
+
     public function submitManagerApproval(Request $httpRequest, OffboardingRequest $request)
     {
         try {
             // Validate the request
             $validatedData = $httpRequest->validate([
                 'employee_id' => 'required|exists:main.employees,id',
+                'type_of_request' => 'required|in:Resignation,Retirement,Contractual Breach,Offload,Involuntary Resignation',
                 'description' => 'nullable|string',
                 'files' => 'nullable|array',
                 'files.*' => 'file|max:104857600',
@@ -80,32 +83,28 @@ class OffboardingRequestsController extends Controller
             $employee = Employee::findOrFail($validatedData['employee_id']);
 
             // Fetch the department of the employee
-            $jobRole = $employee->job_role->department;
+            $jobRole = $employee->job_role;
 
             // Check if the job role exists
             if ($jobRole) {
-            // Fetch the department of the job role
-            $department = $jobRole->department;
+                // Fetch the department of the job role
+                $department = $jobRole->department;
 
+                // Check if the department exists
+                if ($department) {
+                    // Proceed with manager approval for the department
+                    // For example, send notification to the department manager
+                    // and perform other actions as required
+                    $departmentManager = $department->manager;
+                } else {
+                    // Handle the case where the employee's department is not found
+                    return response()->json(['error' => 'Manager department not found'], 404);
+                }
 
-            // Check if the department exists
-            if ($department) {
-                // Proceed with manager approval for the department
-                // For example, send notification to the department manager
-                // and perform other actions as required
-                $departmentManager = $department->managerial;
-
-                // Send notification or perform other actions for department manager
-             // Send notification or perform other actions for department manager
             } else {
-                // Handle the case where the employee's department is not found
-                return response()->json(['error' => 'Employee department not found'], 404);
+                // Handle the case where the employee's job role is not found
+                return response()->json(['error' => 'Employee job role not found'], 404);
             }
-            
-        } else {
-            // Handle the case where the employee's job role is not found
-            return response()->json(['error' => 'Employee job role not found'], 404);
-        }
 
             // Check if files were uploaded
             if ($httpRequest->hasFile('files')) {
@@ -125,7 +124,8 @@ class OffboardingRequestsController extends Controller
             $request->update($updatedData);
 
             // Return success response
-            return response()->json(['message' => 'Manager approval submitted successfully'], 200);
+            // return response()->json(['message' => 'Manager approval submitted successfully'], 200);
+            return back();
         } catch (\Exception $error) {
             // Return error response
             return response()->json(['error' => $error->getMessage()], 500);
@@ -137,23 +137,59 @@ class OffboardingRequestsController extends Controller
         try {
             // Validate the request
             $validatedData = $request->validate([
+                'employee_id' => 'required|exists:main.employees,id',
                 'status' => 'required|in:Approved, Denied',
             ]);
-    
-            // Update the status of the offboarding request to "New"
-            $offboardingRequest->status = 'New';
-            $offboardingRequest->portal_type = 'Manager Self-Service Portal';
+
+            // Update the offboarding request
+            $offboardingRequest->manager_approval_status = $validatedData['status'];
+            $offboardingRequest->status = 'Pending';
             $offboardingRequest->save();
-    
-            // Optionally, you can perform additional actions here,
-            // such as sending notifications or logging the manager's response.
-    
-            return response()->json(['message' => 'Offboarding request status updated to New'], 200);
+
+            return response()->json(['message' => 'Offboarding request Manager Approval Status Updated Successfully'], 200);
         } catch (\Exception $error) {
             // Return error response
             return response()->json(['error' => $error->getMessage()], 500);
         }
     }
+
+    public function submitRequest(Request $request)
+    {
+
+        try {
+            // Validate form input
+            $request->validate([
+                'employee_id' => 'required|exists:main.employees,id',
+                'type_of_request' => 'required',
+                'description' => 'required',
+                'files.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            // Handle file uploads
+            $filePaths = [];
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $filePath = $file->store('offboarding_files');
+                    $filePaths[] = $filePath;
+                }
+            }
+
+            // Store form data in the database
+            $offboardingRequest = new OffboardingRequest();
+            $offboardingRequest->employee_id = $request->employee_id;
+            $offboardingRequest->type_of_request = $request->type_of_request;
+            $offboardingRequest->description = $request->description;
+            $offboardingRequest->status = 'Pending';
+            $offboardingRequest->files = implode(',', $filePaths);
+            $offboardingRequest->save();
+
+            // Redirect or return a response as needed
+            return redirect()->back()->with('success', 'Request submitted successfully!');
+        } catch (\Exception $errors) {
+            return response()->json(['error' => $errors->getMessage()], 500);
+        }
+    }
+
 
     public function count()
     {

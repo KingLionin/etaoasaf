@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/etaoasaf/employee_survey_and_feedback/survey', [App\Http\Controllers\SideNavController::class, 'surveypage'])->name('survey.page');
     Route::get('/etaoasaf/employee_survey_and_feedback/feedback/employee_response', [App\Http\Controllers\SideNavController::class, 'employeeresponse'])->name('employeeresponse.page');
 
+    Route::post('/submit-form', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'submitRequest'])->name('submit.form');
+
     Route::get('/etaoasaf/logout', [App\Http\Controllers\SideNavController::class, 'logoutprocess'])->name('logout');
+
 });
 

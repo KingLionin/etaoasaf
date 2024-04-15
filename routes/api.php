@@ -23,7 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('offboarding/requests/count', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'count'])->name('offboarding.requests.count');
 Route::post('receive-offboarding-request', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'receive'])->name('receive-offboarding-request');
 Route::post('manager-approval/{request}', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'submitManagerApproval'])->name('submit-manager-approval');
-Route::post('offboarding/requests/{offboardingRequest}/manager-response', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'managerResponse'])->name('manager.response');
+Route::post('offboarding/manager-response/{offboardingRequest}', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'managerResponse'])->name('manager-response');
+
+
+
 
 
 

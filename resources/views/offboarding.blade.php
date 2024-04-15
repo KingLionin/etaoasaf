@@ -13,6 +13,7 @@
             <table class="table datatable-basic">
                 <thead>
                     <tr>
+                        <th>Employee Code</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
                         <th>Middlename</th>
@@ -24,16 +25,23 @@
                 <tbody>
                 @foreach($employees as $employee)
                         <tr>
+                            <td>{{ $employee->code }}</td>
                             <td>{{ $employee->last_name }}</td> <!--- employee_lastname  --->
                             <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
                             <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  --->
-                            <td>{{ $employee->job_role->department->name }} </td> <!--- department->department_name --->
+                            <td>{{ $employee->job_role->department->name }}</td> <!--- department->department_name --->
                             <td>{{ $employee->job_role->name }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
-                                    <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view" disabled>
+                                    @if($employee->offboardingrequest && $employee->offboardingrequest->status === 'Approved')
+                                      <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view">
                                         <i class="ph-user-circle-minus"></i>
-                                    </button>
+                                      </button>
+                                    @else
+                                      <button class="text-body btn btn-primary" disabled>
+                                        <i class="ph-user-circle-minus"></i>
+                                      </button>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -55,14 +63,21 @@
                 </div>
 
                 <form class="wizard-form steps-basic" action="#">
-                    <h6>Manager Approval</h6>
+                    <h6>Succession</h6>
                     <fieldset>
-                        
+                       <div class="mb-3">
+                         <label class="form-label">Manager Approval</label>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="manager_approval"
+                                name="manager_approval">
+                            <label class="form-check-label" for="manager_approval">Approve for knowledge transfer</label>
+                          </div>
+                        </div>
                     </fieldset>
 
                     <h6>Survey</h6>
                     <fieldset>
-                        
+
                     </fieldset>
 
                     <h6>Returned Assets</h6>

@@ -45,8 +45,13 @@ class SideNavController extends Controller
 
     public function requestspage()
     {
+        // Retrieve all offboarding requests
         $notifications = OffboardingRequest::all();
-        return view('requests', array_merge($this->getOffboardingRequests(), compact('notifications')));
+
+        $employees = Employee::with('job_role.department')->get();
+
+        // Return the view with notifications and employees in HR
+        return view('requests', array_merge($this->getOffboardingRequests(), compact('notifications', 'employees')));
     }
 
     public function surveypage()

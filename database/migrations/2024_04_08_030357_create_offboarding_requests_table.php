@@ -15,8 +15,7 @@ return new class extends Migration
             
             $table->id();
             $table->integer('employee_id');
-            $table->enum('portal_type', ['Employee Self-Service Portal','Manager-Self-Service Portal']);
-            $table->boolean('knowledge_transfer')->default(false);
+            $table->enum('portal_type', ['Employee Self-Service Portal','Manager-Self-Service Portal'])->nulllable();
             $table->enum('type_of_request', ['Resignation', 'Retirement', 'Contractual Breach', 'Offload', 'Involuntary Resignation']);
             $table->enum('status', ['New', 'Approved', 'Pending', 'Denied']);
             $table->longText('description')->nullable();

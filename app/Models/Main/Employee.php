@@ -14,16 +14,32 @@ class Employee extends Model
     protected $connection = 'main';
     protected $table = 'employees';
 
-    protected $fillable = ['code', 'first_name', 'middle_name', 'last_name', 'email', 'status', 'job_role_id'];
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'user_id');
-    }
+    protected $fillable = [
+        'code', 
+        'first_name', 
+        'middle_name', 
+        'last_name', 
+        'email', 
+        'status', 
+        'work_setup', 
+        'date_of_birth', 
+        'place_birth',
+        'age',
+        'gender',
+        'contact_no',
+        'address',
+        'civil_status',
+        'job_role_id', 
+    ];
 
     public function job_role()
     {
-        return $this->belongsTo(JobRole::class, 'job_role_id');
+        return $this->belongsTo(JobRole::class);
+    }
+
+    public function offboardingrequest()
+    {
+        return $this->hasOne(OffboardingRequest::class, 'employee_id');
     }
 }
 

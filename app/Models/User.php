@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $connection = 'mysql';
+    protected $connection = 'main';
 
     protected $table = 'users';
 
@@ -26,10 +26,12 @@ class User extends Authenticatable
 
     
     protected $fillable = [
-        'employee_id',
+        'name',
         'username',
         'password',
-        'avatar'
+        'token',
+        'remember_token',
+        'avatar',
     ];
 
     public function employee()

@@ -11,8 +11,8 @@
                 <a href="index" class="d-inline-flex align-items-center">
                     <img src="{{ URL::asset('images/hrlogosvg.svg') }}" alt="svg_logo"
                         style="width:50px;height:50px;" />
-                    <span class="d-none d-sm-inline-block h-30px ms-3"
-                        style="font-family: Inter-Black;font-size: 25px;">WORKFOLIO HUMAN RESOURCE</span>
+                    <span class="d-none d-sm-inline-block h-30px ms-3 text-white"
+                        style="font-family: Arial; font-size: 25px; font-weight:bold; text-decoration:none;">WORKFOLIO HUMAN RESOURCE</span>
                 </a>
             </div>
 

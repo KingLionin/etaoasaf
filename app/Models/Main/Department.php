@@ -16,6 +16,13 @@ class Department extends Model
 
     public function job_role()
     {
-        return $this->hasMany(JobRole::class, 'job_role_id');
+        return $this->hasMany(JobRole::class);
+    }
+
+    public function manager()
+    {
+        return $this->hasOne(Employee::class, 'job_role_id')->whereHas('job_role', function ($query) {
+                $query->where('name', 'manager');
+            });
     }
 }

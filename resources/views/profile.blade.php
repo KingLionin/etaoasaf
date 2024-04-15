@@ -58,13 +58,13 @@
                                 <div class="col-lg-4">
                                     <div class="mb-3">
                                         <label class="form-label">Position</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->job_position }}" readonly>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->name}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Job Name</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->job_role->name }} years old" readonly>
+                                        <label class="form-label">Work Status</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->status }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <textarea class="form-control" readonly>{{ auth()->user()->employee->job_role->department->descrition }}</textarea>
+                                        <label class="form-label">Address</label>
+                                        <textarea class="form-control" style="resize:none;" readonly>{{ auth()->user()->employee->address }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +87,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Job Status</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->status }}" readonly>
+                                        <label class="form-label">Work Setup</label>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->employee->work_setup }}" readonly>
                                     </div>
                                 </div>
                             </div>
