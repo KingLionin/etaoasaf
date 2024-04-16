@@ -7,15 +7,15 @@
 
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="col-form-label col-lg-3 mt-3">Distribute To (By Position):</label>
-                    <select class="form-control select" data-minimum-results-for-search="Infinity">
+                    <label class="col-form-label col-lg-5">Distribute To (By Position):</label>
+                    <select class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
                         <option>Managerial</option>
                         <option>Supervisory</option>
                         <option>Rank and File</option>
                         <option>All</option>
                     </select>
                     <label class="col-form-label col-lg-3">Distribute Type</label>
-                    <select id="distributeType" class="form-control select" data-minimum-results-for-search="Infinity">
+                    <select id="distributeType" class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
                         <optgroup label="Human Resource Events">
                             <option>Offboarding</option>
                             <option>Payroll</option>
@@ -24,9 +24,8 @@
                         <option>Distribute Now</option>
                     </select>
                     <div id="scheduleInput" class="input-group" style="display: none;">
-                        <label class="col-form-label col-lg-3 mt-3">Schedule</label>
-                        <span class="input-group-text"><i class="ph-calendar"></i></span>
-                        <input type="text" class="form-control daterange-weeknumbers" value="03/18/2024 - 03/23/2024">
+                        <span class="input-group-text mt-2"><i class="ph-calendar"></i></span>
+                        <input type="text" id="datepicker" class="form-control mt-2 daterange-weeknumbers" value="03/18/2024 - 03/23/2024">
                     </div>
                 </div>
             </div>
@@ -38,4 +37,3 @@
         </div>
     </div>
 </div>
-

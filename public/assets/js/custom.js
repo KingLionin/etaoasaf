@@ -792,4 +792,15 @@ document.addEventListener("DOMContentLoaded", function () {
  * Notifications
  * 
  */
+$(document).ready(function () {
+    // Function to show/hide the datepicker when "Schedule" is selected
+    $('#distributeType').change(function () {
+        var selectedOption = $(this).val();
+        if (selectedOption === 'Schedule') {
+            $('#scheduleInput').show();
+        } else {
+            $('#scheduleInput').hide();
+        }
+    });
+});
 

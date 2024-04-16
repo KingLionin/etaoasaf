@@ -22,33 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Marth</td>
-                    <td>Enright</td>
-                    <td>Vonks</td>
-                    <td>Human Resource</td>
-                    <td><span class="badge bg-danger text-white">Terminated</span></td>
-                    <td class="text-center">
-                            <div class="d-inline-flex">
-                                <div class="dropdown">
-                                    <a href="#" class="text-body" data-bs-toggle="dropdown">
-                                        <i class="ph-list"></i>
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-end" data-bs-toggle="modal" data-bs-target="#modal_form_data_view">
-                                        <a href="#" class="dropdown-item">
-                                            <i class="ph-file-text me-2"></i>
-                                            Employee Data
-                                        </a>
-                                        <a href="#" class="dropdown-item disabled">
-                                            <i class="ph-archive me-2"></i>
-                                            Archived
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>

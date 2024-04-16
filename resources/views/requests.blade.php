@@ -35,24 +35,24 @@
                         <td>{{ $notification->employee->job_role->name }}</td>
                         <td>
                         @php
-                            $statusClass = '';
-                            switch ($notification->status) {
-                            case 'Approved':
-                            $statusClass = 'badge bg-success bg-opacity-50 text-body';
-                            break;
-                            case 'New':
-                            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
-                            break;
-                            case 'Pending':
-                            $statusClass = 'badge bg-warning bg-opacity-50 text-body';
-                            break;
-                            case 'Denied':
-                            $statusClass = 'badge bg-danger bg-opacity-50 text-body';
-                            break;
-                            default:
-                            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
-                            break;
-                            }
+    $statusClass = '';
+    switch ($notification->status) {
+        case 'Approved':
+            $statusClass = 'badge bg-success bg-opacity-50 text-body';
+            break;
+        case 'New':
+            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
+            break;
+        case 'Pending':
+            $statusClass = 'badge bg-warning bg-opacity-50 text-body';
+            break;
+        case 'Denied':
+            $statusClass = 'badge bg-danger bg-opacity-50 text-body';
+            break;
+        default:
+            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
+            break;
+    }
                         @endphp
                         <span class="badge {{ $statusClass }}">{{ $notification->status }}</span>
                         </td>
@@ -65,15 +65,39 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end">
+                             @if($notification->status == 'New')
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_message_view">
+                                    data-bs-target="#modal_form_employee_view_{{ $notification->id }}">
                                     <i class="ph-arrows-out me-2"></i>
                                     View
                                 </a>
-                                <a href="#" class="dropdown-item">
-                                    <i class="ph-trash me-2"></i>
-                                    Delete
+                            @elseif($notification->status == 'Approved')
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#modal_form_old_view_{{ $notification->id }}">
+                                    <i class="ph-arrows-out me-2"></i>
+                                    View
                                 </a>
+                            @elseif($notification->status == 'Pending')
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#modal_form_pending_view_{{ $notification->id }}">
+                                    <i class="ph-arrows-out me-2"></i>
+                                    View
+                                </a>
+                            @else
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#modal_form_old_view_{{ $notification->id }}">
+                                    <i class="ph-arrows-out me-2"></i>
+                                    View
+                                </a>
+                            @endif
+                            <form id="deleteForm{{ $notification->id }}" method="post" action="{{ route('requests.delete', $notification->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="#" class="dropdown-item" onclick="document.getElementById('deleteForm{{ $notification->id }}').submit()">
+                                   <i class="ph-trash me-2"></i>
+                                     Delete
+                                </a>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -87,6 +111,7 @@
 
     <!--- Modal components --->
     @include('components.construct-request-modal')
+    @include('components.request-modals')
 </div>
 <!-- /content area -->
 

@@ -63,7 +63,7 @@
                 </div>
 
                 <form class="wizard-form steps-basic" action="#">
-                    <h6>Succession</h6>
+                    <h6>Knowledge Transfer</h6>
                     <fieldset>
                        <div class="mb-3">
                          <label class="form-label">Manager Approval</label>

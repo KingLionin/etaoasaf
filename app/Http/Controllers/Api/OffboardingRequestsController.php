@@ -22,7 +22,7 @@ class OffboardingRequestsController extends Controller
                 'status' => 'required|in:New,Approved,Pending,Denied',
                 'description' => 'nullable|string',
                 'files' => 'nullable|array',
-                'files.*' => 'file|max:104857600',
+                'files.*' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Check if files were uploaded
@@ -76,7 +76,7 @@ class OffboardingRequestsController extends Controller
                 'type_of_request' => 'required|in:Resignation,Retirement,Contractual Breach,Offload,Involuntary Resignation',
                 'description' => 'nullable|string',
                 'files' => 'nullable|array',
-                'files.*' => 'file|max:104857600',
+                'files.*' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Fetch the employee
@@ -161,7 +161,7 @@ class OffboardingRequestsController extends Controller
             $request->validate([
                 'employee_id' => 'required|exists:main.employees,id',
                 'type_of_request' => 'required',
-                'description' => 'required',
+                'description' => 'nullable|string',
                 'files.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
@@ -187,6 +187,25 @@ class OffboardingRequestsController extends Controller
             return redirect()->back()->with('success', 'Request submitted successfully!');
         } catch (\Exception $errors) {
             return response()->json(['error' => $errors->getMessage()], 500);
+        }
+    }
+
+    // RequestController.php
+
+    public function deleterequest($id)
+    {
+        try {
+            // Find the request by ID
+            $request = OffboardingRequest::findOrFail($id);
+
+            // Delete the request
+            $request->delete();
+
+            // Redirect with success message
+            return redirect()->back()->with('success', 'Request deleted successfully!');
+        } catch (\Exception $exception) {
+            // Redirect with error message if deletion fails
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 

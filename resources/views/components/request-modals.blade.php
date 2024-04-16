@@ -217,15 +217,15 @@
             <div class="modal-content">
                 @if($request->status == 'Approved')
                     <div class="modal-header bg-success text-white border-0">
-                        <h1 class="modal-title">MANAGER RESPONSE</h1>
+                        <h1 class="modal-title">MANAGER RESPONSE: APPROVED</h1>
                     </div>
                 @elseif($request->status == 'Denied')
                     <div class="modal-header bg-danger text-white border-0">
-                        <h1 class="modal-title">MANAGER RESPONSE</h1>
+                        <h1 class="modal-title">MANAGER RESPONSE: DENIED</h1>
                     </div>
                 @else
                     <div class="modal-header bg-info text-white border-0">
-                        <h1 class="modal-title">MANAGER APPROVAL</h1>
+                        <h1 class="modal-title">MANAGER APPROVAL: UNKNOWN</h1>
                     </div>
                 @endif
 

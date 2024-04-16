@@ -52,7 +52,7 @@
 
                         <div class="col-sm-12 mb-3">
                             <label class="form-label">Files</label>
-                            <input type="file" class="file-input" multiple="multiple" name="files[]">
+                            <input type="file" class="file-input" name="files[]" multiple="multiple" data-browse-class="btn btn-primary w-100" data-show-remove="false" data-show-caption="false" data-show-upload="false">
                         </div>
                     </div>
                 </div>
