@@ -789,7 +789,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* 
  *
- * Notifications
+ * Survey-modal
  * 
  */
 $(document).ready(function () {
