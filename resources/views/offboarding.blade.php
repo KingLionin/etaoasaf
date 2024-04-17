@@ -34,7 +34,7 @@
                             <td class="text-center">
                                 <div class="d-inline-flex">
                                     @if($employee->offboardingrequest && $employee->offboardingrequest->status === 'Approved')
-                                      <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view">
+                                      <button class="text-body btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view_{{ $employee->offboardingrequest->id}}">
                                         <i class="ph-user-circle-minus"></i>
                                       </button>
                                     @else
@@ -55,47 +55,75 @@
     <!-- /content area -->
 
     <!-- Vertical form modal View -->
-    <div id="modal_form_clearance_view" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white border-0">
-                    <h1 class="modal-title">CLEARANCE</h1>
-                </div>
-
-                <form class="wizard-form steps-basic" action="#">
-                    <h6>Knowledge Transfer</h6>
-                    <fieldset>
-                       <div class="mb-3">
-                         <label class="form-label">Manager Approval</label>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="manager_approval"
-                                name="manager_approval">
-                            <label class="form-check-label" for="manager_approval">Approve for knowledge transfer</label>
-                          </div>
+    @foreach($employees as $employee)
+        @if($employee->offboardingrequest)
+            <div id="modal_form_clearance_view_{{ $employee->offboardingrequest->id }}" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white border-0">
+                            <h1 class="modal-title">CLEARANCE STEP 1: APPROVAL</h1>
                         </div>
-                    </fieldset>
 
-                    <h6>Survey</h6>
-                    <fieldset>
+                        <div class="modal-body">
+                            <h6 class="mb-3">Legal Management Approval</h6>
+                            <div class="d-flex justify-content-center align-items-center flex-column">
+                                <i class="ph ph-user-circle-minus mb-3" style="font-size: 100px;"></i>
+                                <p class="mb-3" style="font-size: 50px;">
+                                    @if($employee->offboardingrequest->legalmanagementapproval)
+                                        @if($employee->offboardingrequest->legalmanagementapproval->status === 'Approved')
+                                            <span class="text-success fw-bold">APPROVED</span>
+                                        @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Pending')
+                                            <span class="text-warning fw-bold">PENDING</span>
+                                        @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Denied')
+                                            <span class="text-danger fw-bold">DENIED</span>
+                                        @else
+                                            REQUEST APPROVAL
+                                        @endif
+                                    @else
+                                        REQUEST APPROVAL
+                                    @endif
+                                </p>
+        
+                                <form action="{{ route('legal-management-approval.send') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="legal_approval_id" value="{{ $employee->offboardingrequest->id }}">
+                                    @if($employee->offboardingrequest->legalmanagementapproval)
+                                        @if($employee->offboardingrequest->legalmanagementapproval->status === 'Approved')
+                                            <button type="submit" class="btn btn-primary btn-sm mb-3" disabled>Request is Approved</button>
+                                        @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Pending')
+                                            <button type="submit" class="btn btn-primary btn-sm mb-3" disabled>Request is Pending</button>
+                                        @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Denied')
+                                            <button type="submit" class="btn btn-primary btn-sm mb-3" disabled>Request is Denied</button>
+                                        @else
+                                            <button type="submit" class="btn btn-primary btn-sm mb-3">Request is Legal Management Approval</button>
+                                        @endif
+                                    @else
+                                        <button type="submit" class="btn btn-primary btn-sm mb-3">Request is Legal Management Approval</button>
+                                    @endif
+                                </form>
+                            </div>
+                        </div>
 
-                    </fieldset>
-
-                    <h6>Returned Assets</h6>
-                    <fieldset>
-                        
-                    </fieldset>
-
-                    <h6>Loans</h6>
-                    <fieldset>
-                        
-                    </fieldset>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            @if($employee->offboardingrequest->legalmanagementapproval)
+                                @if($employee->offboardingrequest->legalmanagementapproval->status === 'Pending' || $employee->offboardingrequest->legalmanagementapproval->status === 'Denied')
+                                  <button type="button" class="btn btn-primary" disabled>Next</button>
+                                @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Approved')
+                                  <button type="button" class="btn btn-primary">Next</button>
+                                @else
+                                  <button type="button" class="btn btn-primary">Next</button>
+                                @endif
+                            @else
+                                <button type="button" class="btn btn-primary">Next</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- /vertical form modal -->
             </div>
-            <!-- /basic setup -->
-        </div>
-        <!-- /vertical form modal -->
-    </div>
-
+        @endif
+    @endforeach
 @endsection
 
 

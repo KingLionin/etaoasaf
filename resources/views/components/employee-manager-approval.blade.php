@@ -1,7 +1,7 @@
 <!-- Vertical form to manager approval modal -->
 @foreach($newOffboardingRequests as $request)
     <div id="modal_form_forward_manager_vertical_{{ $request->id }}" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary bg-text border-0 d-flex justify-content-center align-content-center">
                     <h3 class="modal-title">APPROVAL FORM</h3>

@@ -1,7 +1,7 @@
 <!-- Vertical modal form request View -->
 @foreach($newOffboardingRequests as $request)
     <div id="modal_form_request_employee_view_{{ $request->id }}" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div
                     class="modal-header bg-primary text-white border-0 d-flex justify-content-center align-content-center">
@@ -92,7 +92,7 @@
 <!-- Vertical modal form request View -->
 @foreach($pendingOffboardingRequests as $request)
     <div id="modal_form_pending_view_{{ $request->id }}" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-warning text-white border-0">
                     <h1 class="modal-title">WAITING APPROVAL</h1>
@@ -213,7 +213,7 @@
 <!-- Vertical modal form approval view -->
 @foreach($oldOffboardingRequests as $request)
     <div id="modal_form_old_view_{{ $request->id }}" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 @if($request->status == 'Approved')
                     <div class="modal-header bg-success text-white border-0">

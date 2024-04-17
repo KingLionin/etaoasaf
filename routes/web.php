@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LegalManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/submit-form', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'submitRequest'])->name('submit.form');
 
     Route::delete('/delete-requests/{id}', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'deleterequest'])->name('requests.delete');
+
+    Route::post('/legal-management-approval/send', [App\Http\Controllers\LegalManagementController::class, 'sendApproval'])->name('legal-management-approval.send');
 
     Route::get('/etaoasaf/logout', [App\Http\Controllers\SideNavController::class, 'logoutprocess'])->name('logout');
 });

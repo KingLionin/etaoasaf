@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Main\Employee;
+use App\Models\LegalManagementApproval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,5 +27,10 @@ class OffboardingRequest extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function legalmanagementapproval()
+    {
+       return $this->hasOne(LegalManagementApproval::class, 'offboard_request_id');
     }
 }
