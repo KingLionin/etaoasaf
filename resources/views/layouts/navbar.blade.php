@@ -48,7 +48,7 @@
                             <i class="ph-user-circle me-2"></i>
                             {{ __('My Profile') }}
                         </a>
-                        <a class="dropdown-item-logout" href="{{ route('logout') }}">
+                        <a class="dropdown-item" href="{{ route('logout') }}">
                             <i class="ph-sign-out me-2"></i> {{ __('Logout') }}
                         </a>
                     </div>
