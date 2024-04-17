@@ -17,7 +17,7 @@
                                 @foreach($employees->groupBy('job_role.department.name') as $department => $employeesInDepartment)
                                     <optgroup label="{{ $department }}">
                                         @foreach($employeesInDepartment as $employee)
-                                            @if($employee->job_role->name == 'HR Manager')
+                                            @if($employee->job_role->name == 'Manager')
                                                 <option value="{{ $employee->id }}">{{ $employee->first_name }}
                                                     {{ $employee->middle_name }} {{ $employee->last_name }} -
                                                     {{ $employee->job_role->name }}</option>

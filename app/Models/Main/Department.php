@@ -22,7 +22,7 @@ class Department extends Model
     public function manager()
     {
         return $this->hasOne(Employee::class, 'job_role_id')->whereHas('job_role', function ($query) {
-                $query->where('name', 'HR manager');
+                $query->where('name', 'manager');
             });
     }
 }
