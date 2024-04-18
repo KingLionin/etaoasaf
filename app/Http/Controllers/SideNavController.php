@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use App\Models\Main\JobRole;
 use App\Models\Main\Employee;
 use App\Models\OffboardingRequest;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,8 @@ class SideNavController extends Controller
     }
     public function createsurveyforms()
     {
-        return view('create-survey', $this->getOffboardingRequests());
+        $jobRoles = JobRole::whereNotIn('name', ['Manager', 'Staff'])->get();
+        return view('create-survey', $this->getOffboardingRequests(), compact('jobRoles'));
     }
     public function employeeresponse()
     {

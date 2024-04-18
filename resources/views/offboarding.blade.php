@@ -110,12 +110,12 @@
                                 @if($employee->offboardingrequest->legalmanagementapproval->status === 'Pending' || $employee->offboardingrequest->legalmanagementapproval->status === 'Denied')
                                   <button type="button" class="btn btn-primary" disabled>Next</button>
                                 @elseif($employee->offboardingrequest->legalmanagementapproval->status === 'Approved')
-                                  <button type="button" class="btn btn-primary">Next</button>
+                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_clearance_view_step2">Next</button>
                                 @else
-                                  <button type="button" class="btn btn-primary">Next</button>
+                                  <button type="button" class="btn btn-primary" disabled>Next Step</button>
                                 @endif
                             @else
-                                <button type="button" class="btn btn-primary">Next</button>
+                                <button type="button" class="btn btn-primary" disabled>Next Step</button>
                             @endif
                         </div>
                     </div>
@@ -124,6 +124,22 @@
             </div>
         @endif
     @endforeach
+
+    <div id="modal_form_clearance_view_step2" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white border-0">
+                    <h1 class="modal-title">CLEARANCE STEP 2: Survey</h1>
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Next Step</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 

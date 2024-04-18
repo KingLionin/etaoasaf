@@ -172,13 +172,13 @@
                                 <div class="col-lg-7">
                                     <div class="mb-3">
                                         <span>
-                                            @if($request->employee && $request->employee->job_role && $request->employee->job_role->department)  
+                                        @if($request->employee && $request->employee->job_role && $request->employee->job_role->department && $request->employee->job_role->department->manager)  
                                                 {{ $request->employee->job_role->department->manager->first_name }}
                                                 {{ $request->employee->job_role->department->manager->middle_name }}
                                                 {{ $request->employee->job_role->department->manager->last_name }}
-                                            @else
-                                                Manager name not found
-                                            @endif
+                                        @else
+                                            Department Manager Not Found
+                                        @endif
                                         </span>
                                     </div>
                                 </div>
@@ -237,13 +237,13 @@
                             <div class="col-lg-7">
                                 <div class="mb-3">
                                 <span>
-                                    @if($request->employee && $request->employee->job_role && $request->employee->job_role->department)  
+                                @if($request->employee && $request->employee->job_role && $request->employee->job_role->department && $request->employee->job_role->department->manager)  
                                         {{ $request->employee->job_role->department->manager->first_name }}
                                         {{ $request->employee->job_role->department->manager->middle_name }}
                                         {{ $request->employee->job_role->department->manager->last_name }}
-                                    @else
-                                      Deparment Manager not found
-                                    @endif
+                                @else
+                                    Department Manager Not Found
+                                @endif
                                 </span>
                                 </div>
                             </div>
@@ -258,13 +258,13 @@
                                 <div class="mb-3">
                                 <span>
                                         @if($request->employee && $request->employee->job_role && $request->employee->job_role->department)  
-                                            @if($request->employee->job_role->department->manager->job_role->name == 'Manager')
+                                            @if($request->employee->job_role->department->manager == 'Manager')
                                                 Manager
                                             @else
                                                 {{ $request->employee->job_role->name }}
                                             @endif
                                         @else
-                                          -
+                                          NO POSITION
                                         @endif
                                     </span>
                                 </div>

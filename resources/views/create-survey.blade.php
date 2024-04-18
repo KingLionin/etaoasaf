@@ -23,11 +23,6 @@
             <h5 class="mb-0">Question 1</h5>
             <div class="question-card-actions g-3">
                 <div class="d-flex align-items-center me-2">
-                    <a href="#" class="me-2 delete-question" data-bs-popup="tooltip" title="Delete"
-                        data-bs-placement="top">
-                        <i class="text-white ph-trash"></i>
-                    </a>
-                    <div class="me-2" style="border-left: 1px solid rgba(255,255,255,0.5); height: 30px; margin-right: 5px;"></div>
                     <div class="form-check form-switch text-white d-flex align-items-center">
                         <input type="checkbox" class="form-check-input form-check-input-white me-2" id="dc_rss_u">
                         <label class="form-check-label" for="dc_rss_u">Required</label>

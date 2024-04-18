@@ -96,6 +96,7 @@ class OffboardingRequestsController extends Controller
                     // For example, send notification to the department manager
                     // and perform other actions as required
                     $departmentManager = $department->manager;
+
                 } else {
                     // Handle the case where the employee's department is not found
                     return response()->json(['error' => 'Manager department not found'], 404);

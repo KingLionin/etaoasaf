@@ -9,13 +9,17 @@
                 <div class="mb-3">
                     <label class="col-form-label col-lg-5">Distribute To (By Position):</label>
                     <select class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
-                        <option>Managerial</option>
-                        <option>Supervisory</option>
-                        <option>Rank and File</option>
-                        <option>All</option>
+                      <option value=""> -- Select Position to Distribute -- </option>
+                      @foreach($jobRoles as $jobRole)
+                        <option>{{ $jobRole->name }}</option>
+                      @endforeach
+                      <option>Manager</option>
+                      <option>Staff</option>
+                      <option>All</option>
                     </select>
                     <label class="col-form-label col-lg-3">Distribute Type</label>
                     <select id="distributeType" class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
+                        <option value=""> -- Select Distribute Type -- </option>
                         <optgroup label="Human Resource Events">
                             <option>Offboarding</option>
                             <option>Payroll</option>

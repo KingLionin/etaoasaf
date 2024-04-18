@@ -67,7 +67,7 @@
                             <div class="dropdown-menu dropdown-menu-end">
                              @if($notification->status == 'New')
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_employee_view_{{ $notification->id }}">
+                                    data-bs-target="#modal_form_request_employee_view_{{ $notification->id }}">
                                     <i class="ph-arrows-out me-2"></i>
                                     View
                                 </a>
