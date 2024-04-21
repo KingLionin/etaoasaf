@@ -12,7 +12,6 @@
 
 var GooglePieBasic = function() {
 
-
     //
     // Setup module components
     //
@@ -31,24 +30,16 @@ var GooglePieBasic = function() {
 
         // Initialize chart
         google.charts.load('current', {
-            callback: function () {
+            callback: function() {
 
                 // Draw chart
                 drawPie();
-
-                // Resize on sidebar width change
-                var sidebarToggle = document.querySelectorAll('.sidebar-control');
-                if (sidebarToggle) {
-                    sidebarToggle.forEach(function(togglers) {
-                        togglers.addEventListener('click', drawPie);
-                    });
-                }
 
                 // Resize on window resize
                 var resizePieBasic;
                 window.addEventListener('resize', function() {
                     clearTimeout(resizePieBasic);
-                    resizePieBasic = setTimeout(function () {
+                    resizePieBasic = setTimeout(function() {
                         drawPie();
                     }, 200);
                 });
@@ -69,24 +60,21 @@ var GooglePieBasic = function() {
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Work',     11],
-                ['Eat',      2],
-                ['Commute',  2],
-                ['Watch TV', 2],
-                ['Sleep',    7]
+                ['OandT', 'Number per day'],
+                ['OFFBOARD', 10],
+                ['TERMINATED', 10],
+                ['EMPLOYEES', 10]
             ]);
 
             // Options
             var options_pie = {
                 fontName: 'var(--body-font-family)',
-                height: 300,
+                height: 250,
                 width: 500,
                 backgroundColor: 'transparent',
                 pieSliceBorderColor: color_theme('#2c2d32', '#fff'),
                 colors: [
-                    '#2ec7c9','#b6a2de','#5ab1ef','#ffb980',
-                    '#d87a80','#8d98b3','#e5cf0d','#97b552'
+                    '#f0ad4e', '#d9534f', '#0275d8',
                 ],
                 legend: {
                     textStyle: {
@@ -94,7 +82,7 @@ var GooglePieBasic = function() {
                     }
                 },
                 chartArea: {
-                    left: 50,
+                    left: 30,
                     width: '90%',
                     height: '90%'
                 }

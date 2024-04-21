@@ -56,7 +56,7 @@
                     <div class="input-fields" id="questionConstructor">
                         <!-- This is where the dynamically shown input field will be placed -->
                         <!-- Default input field (textfield) -->
-                        <input type="text" placeholder="Enter answer" class="form-control" disabled/>
+                        <input type="text" placeholder="Show textfield" class="form-control" disabled/>
                     </div>
                 </div>
             </div>

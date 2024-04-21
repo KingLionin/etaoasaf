@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create textfield
         const textField = createTextField();
+        textField.placeholder = "Show textfield";
+        textField.disabled = true;
         questionConstructor.appendChild(textField);
     }
 
@@ -60,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create textarea
         const textarea = createTextarea();
+        textarea.placeholder = "Show textarea";
+        textarea.disabled = true;
         questionConstructor.appendChild(textarea);
     }
 
@@ -78,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create corresponding textfield
         const textField = createTextField();
+        textField.placeholder = "Option";
         optionWrapperRadio.appendChild(textField);
 
         // Create delete button
@@ -133,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create corresponding textfield
         const textField = createTextField();
+        textField.placeholder = "Option";
         optionWrapperCheckbox.appendChild(textField);
 
         // Create delete button
@@ -178,6 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create corresponding textfield
         const textField = createTextField();
+        textField.placeholder = "Option";
+        textField.disabled = true;
         optionWrapperDropdown.appendChild(textField);
 
         // Create delete button
@@ -253,6 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textFieldColumn = document.createElement('div');
         textFieldColumn.classList.add('mt-4', 'col');
         const textField = createTextField();
+        textField.placeholder = "Enter Label (Optional)";
         textFieldColumn.appendChild(textField);
         row.appendChild(textFieldColumn);
 
@@ -291,8 +300,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function createTextField() {
         const textField = document.createElement('input');
         textField.type = "text";
-        textField.placeholder = "Show Answer";
-        textField.disabled = true;
         textField.classList.add('form-control');
         return textField;
     }
@@ -300,8 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to create a textarea
     function createTextarea() {
         const textarea = document.createElement('textarea');
-        textarea.placeholder = "Show answer";
-        textarea.disabled = true;
         textarea.classList.add('form-control');
         return textarea;
     }
@@ -682,7 +687,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div class="input-fields" id="${inputFieldsId}" data-question-number="${questionCounter}">
                                     <!-- This is where the dynamically shown input field will be placed -->
                                     <!-- Default input field (textfield) -->
-                                    <input type="text" placeholder="Enter answer" class="form-control" disabled/>
+                                    <input type="text" placeholder="Show Textfield" class="form-control" disabled/>
                                 </div>
                             </div>
                         </div>`;
@@ -785,6 +790,7 @@ document.addEventListener("DOMContentLoaded", function () {
  * Survey-modal
  * 
  */
+
 $(document).ready(function () {
     // Function to show/hide the datepicker when "Schedule" is selected
     $('#distributeType').change(function () {

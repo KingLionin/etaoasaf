@@ -81,7 +81,7 @@ var GoogleDonutBasic = function() {
             var options_donut = {
                 fontName: 'var(--body-font-family)',
                 pieHole: 0.55,
-                height: 300,
+                height: 250,
                 width: 500,
                 backgroundColor: 'transparent',
                 pieSliceBorderColor: color_theme('#2c2d32', '#fff'),
