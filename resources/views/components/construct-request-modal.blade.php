@@ -14,17 +14,17 @@
                             <label class="form-label">Employee</label>
                             <select class="form-select" name="employee_id">
                                 <option value="">-- Select an Employee --</option>
-                                @foreach($employees->groupBy('job_role.department.name') as $department => $employeesInDepartment)
+                                @foreach($employees->groupBy('hrJob.hrJobCategory.department.name') as $department => $employeesInDepartment)
                                     <optgroup label="{{ $department }}">
                                         @foreach($employeesInDepartment as $employee)
-                                            @if($employee->job_role->name == 'Manager')
+                                            @if(strpos($employee->hrJob->name, 'Manager'))
                                                 <option value="{{ $employee->id }}">{{ $employee->first_name }}
                                                     {{ $employee->middle_name }} {{ $employee->last_name }} -
-                                                    {{ $employee->job_role->name }}</option>
+                                                    {{ $employee->hrJob->name }}</option>
                                             @endif
                                         @endforeach
                                         @foreach($employeesInDepartment as $employee)
-                                            @unless($employee->job_role->name == 'Manager')
+                                            @unless(strpos($employee->hrJob->name, 'Manager'))
                                                 <option value="{{ $employee->id }}">{{ $employee->first_name }}
                                                     {{ $employee->middle_name }} {{ $employee->last_name }}</option>
                                             @endunless

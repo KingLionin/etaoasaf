@@ -23,13 +23,13 @@
                             <label class="col-lg-4">Department:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->department->name }}</span>
+                                    <span>{{ $request->employee->hrJob->hrJobCategory->department->name }}</span>
                                 </div>
                             </div>
                             <label class="col-lg-4">Position:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->name }}</< /span>
+                                    <span>{{ $request->employee->hrJob->name }}</< /span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="requestManagerApprovalBtn" data-bs-toggle="modal"
                         data-bs-target="#modal_form_forward_manager_vertical_{{ $request->id }}">Request
-                        {{ $request->employee->job_role->department->name }} Manager Approval</button>
+                        {{ $request->employee->hrJob->hrJobCategory->department->name }} Manager Approval</button>
                 </div>
             </div>
         </div>
@@ -113,13 +113,13 @@
                             <label class="col-lg-4">Department:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->department->name }}</span>
+                                    <span>{{ $request->employee->hrJob->hrJobCategory->department->name }}</span>
                                 </div>
                             </div>
                             <label class="col-lg-4">Position:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->name }}</span>
+                                    <span>{{ $request->employee->hrJob->name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -172,10 +172,10 @@
                                 <div class="col-lg-7">
                                     <div class="mb-3">
                                         <span>
-                                        @if($request->employee && $request->employee->job_role && $request->employee->job_role->department && $request->employee->job_role->department->manager)  
-                                                {{ $request->employee->job_role->department->manager->first_name }}
-                                                {{ $request->employee->job_role->department->manager->middle_name }}
-                                                {{ $request->employee->job_role->department->manager->last_name }}
+                                        @if($request->employee && $request->employee->hrJobs && $request->employee->hrJobs->hrJobCategory->department && $request->employee->hrJobs->hrJobCategory->department->managers)  
+                                            {{ $request->employee->hrJobs->department->managers->first_name }}
+                                            {{ $request->employee->hrJobs->department->managers->middle_name }}
+                                            {{ $request->employee->hrJobs->department->managers->last_name }}
                                         @else
                                             Department Manager Not Found
                                         @endif
@@ -236,39 +236,35 @@
                             <label class="col-lg-4">Manager Name:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                <span>
-                                @if($request->employee && $request->employee->job_role && $request->employee->job_role->department && $request->employee->job_role->department->manager)  
-                                        {{ $request->employee->job_role->department->manager->first_name }}
-                                        {{ $request->employee->job_role->department->manager->middle_name }}
-                                        {{ $request->employee->job_role->department->manager->last_name }}
-                                @else
-                                    Department Manager Not Found
-                                @endif
-                                </span>
+                                    <span>
+                                        @if($request->employee && $request->employee->hrJobs && $request->employee->hrJobs->hrJobCategory->department && $request->employee->hrJobs->hrJobCategory->department->managers)  
+                                            {{ $request->employee->hrJobs->department->managers->first_name }}
+                                            {{ $request->employee->hrJobs->department->managers->middle_name }}
+                                            {{ $request->employee->hrJobs->department->managers->last_name }}
+                                        @else
+                                            Department Manager Not Found
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
-                            <label class="col-lg-4">Department:</label>
-                            <div class="col-lg-7">
-                                <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->department->name }}</span>
-                                </div>
-                            </div>
+
+                            
                             <label class="col-lg-4">Position:</label>
-                            <div class="col-lg-7">
+                              <div class="col-lg-7">
                                 <div class="mb-3">
-                                <span>
-                                        @if($request->employee && $request->employee->job_role && $request->employee->job_role->department)  
-                                            @if($request->employee->job_role->department->manager == 'Manager')
+                                    <span>
+                                        @if($request->employee && $request->employee->hrJobs && $request->employee->hrJobs->hrJobCategory->department)  
+                                            @if(strpos($request->employee->hrJobs->hrJobCategory->department->name, 'Manager'))
                                                 Manager
                                             @else
-                                                {{ $request->employee->job_role->name }}
+                                                {{ $request->employee->hrJobs->name }}
                                             @endif
                                         @else
                                           NO POSITION
                                         @endif
                                     </span>
                                 </div>
-                            </div>
+                              </div>
                         </div>
                     </div>
 
@@ -290,13 +286,13 @@
                             <label class="col-lg-4">Department:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->department->name }}</span>
+                                    <span>{{ $request->employee->hrJob->hrJobCategory->department->name }}</span>
                                 </div>
                             </div>
                             <label class="col-lg-4">Position:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->employee->job_role->name }}</span>
+                                    <span>{{ $request->employee->hrJob->name }}</span>
                                 </div>
                             </div>
                             <label class="col-lg-4">Request Type:</label>

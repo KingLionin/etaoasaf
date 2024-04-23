@@ -31,8 +31,8 @@
                     <tr>
                         <td>{{ $notification->employee->last_name }}, {{ $notification->employee->first_name }}
                             {{ $notification->employee->middle_name }}</td>
-                        <td>{{ $notification->employee->job_role->department->name }}</td>
-                        <td>{{ $notification->employee->job_role->name }}</td>
+                        <td>{{ $notification->employee->hrJob->hrJobCategory->department->name }}</td>
+                        <td>{{ $notification->employee->hrJob->name }}</td>
                         <td>
                         @php
     $statusClass = '';

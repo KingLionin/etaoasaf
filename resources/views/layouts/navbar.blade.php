@@ -40,7 +40,7 @@
                             @endif
                             <span class="status-indicator bg-success"></span>
                         </div>
-                        <span class="d-none d-lg-inline-block mx-lg-2">{{auth()->user()->name}}</span>
+                        <span class="d-none fw-bold d-lg-inline-block mx-lg-2">{{auth()->user()->name}}</span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Main\Employee;
+use App\Models\EmployeeInfo\Employee;
 use App\Models\LegalManagementApproval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

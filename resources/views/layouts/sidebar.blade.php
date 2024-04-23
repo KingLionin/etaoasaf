@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.page') }}" class="nav-link">
-                                <i class="ph-house"></i>
+                                <i class="ph-house delete-question" data-bs-toggle="tooltip" title="Dashboard" data-bs-placement="left"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>

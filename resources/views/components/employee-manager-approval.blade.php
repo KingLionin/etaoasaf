@@ -41,14 +41,14 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label class="form-label">Department</label>
-                                    <input type="text" placeholder="Ring street 12" class="form-control"
-                                        value="{{ $request->employee->job_role->department->name }}" disabled>
+                                    <input type="text" placeholder="Department" class="form-control"
+                                        value="{{ $request->employee->hrJob->hrJobCategory->department->name }}" disabled>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <label class="form-label">Position</label>
                                     <input id="positionInput" type="text" placeholder="Enter your position"
-                                        value="{{ $request->employee->job_role->name }}" class="form-control" disabled>
+                                        value="{{ $request->employee->hrJob->name }}" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>

@@ -28,9 +28,9 @@
                             <td>{{ $employee->code }}</td>
                             <td>{{ $employee->last_name }}</td> <!--- employee_lastname  --->
                             <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
-                            <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  --->
-                            <td>{{ $employee->job_role->department->name }}</td> <!--- department->department_name --->
-                            <td>{{ $employee->job_role->name }}</td> <!--- position->position_name --->
+                            <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  ---> 
+                            <td>{{ $employee->hrJob->hrJobCategory->department->name}}</td>
+                            <td>{{ $employee->hrJob->name }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
                                     @if($employee->offboardingrequest && $employee->offboardingrequest->status === 'Approved')

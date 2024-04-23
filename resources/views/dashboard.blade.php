@@ -4,7 +4,7 @@
 
 <div class="content">
     <div class="row mt-3">
-        <div class="col-sm-2 col-xl-3">
+        <div class="col-sm-1 col-md-2 col-xl-3">
             <div class="card card-body" style="transition: all 0.3s ease-in-out;"
                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <a href="{{ route('offboarding.page') }}" class="d-flex align-items-center"
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-xl-3">
+        <div class="col-sm-1 col-md-2 col-xl-3">
             <div class="card card-body" style="transition: all 0.3s ease-in-out;"
                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <a href="{{ route('termination.page') }}" class="d-flex align-items-center"
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-xl-3">
+        <div class="col-sm-1 col-md-2 col-xl-3">
             <div class="card card-body" style="transition: all 0.3s ease-in-out;"
                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <a href="{{ route('survey.page') }}" class="d-flex align-items-center"
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-xl-3">
+        <div class="col-sm-1 col-md-2 col-xl-3">
             <div class="card card-body" style="transition: all 0.3s ease-in-out;"
                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <a href="{{ route('employeeresponse.page') }}" class="d-flex align-items-center"

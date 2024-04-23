@@ -69,12 +69,9 @@ var GoogleDonutBasic = function() {
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Work',     11],
-                ['Eat',      2],
-                ['Commute',  2],
-                ['Watch TV', 2],
-                ['Sleep',    7]
+                ['SandF', 'Number per Day'],
+                ['SURVEYS', 1],
+                ['RESPONSES', 1]
             ]);
 
             // Options
@@ -86,8 +83,7 @@ var GoogleDonutBasic = function() {
                 backgroundColor: 'transparent',
                 pieSliceBorderColor: color_theme('#2c2d32', '#fff'),
                 colors: [
-                    '#2ec7c9','#b6a2de','#5ab1ef','#ffb980',
-                    '#d87a80','#8d98b3','#e5cf0d','#97b552'
+                    '#0275d8', '#5cb85c'
                 ],
                 legend: {
                     textStyle: {

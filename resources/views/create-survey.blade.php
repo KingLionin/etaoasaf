@@ -10,10 +10,10 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <input type="text" placeholder="Enter Survey Title" class="form-control" />
+                <input type="text" id="survey_title" name="survey_title" placeholder="Enter Survey Title" class="form-control" required/>
             </div>
             <div class="mb-3">
-                <textarea placeholder="Enter Survey Description" class="form-control elastic"></textarea>
+                <textarea placeholder="Enter Survey Description" name="survey_description" id="survey_description" class="form-control elastic" required></textarea>
             </div>
         </div>
     </div>

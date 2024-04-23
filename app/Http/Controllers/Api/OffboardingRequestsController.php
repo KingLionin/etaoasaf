@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Main\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\OffboardingRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\EmployeeInfo\Employee;
 
 class OffboardingRequestsController extends Controller
 {
@@ -16,7 +16,7 @@ class OffboardingRequestsController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'employee_id' => 'required|exists:main.employees,id',
+                'employee_id' => 'required|exists:employeeinfo.employees,id',
                 'portal_type' => 'required|in:Employee Self-Service Portal, Manager Self-Service Portal',
                 'type_of_request' => 'required|in:Resignation,Retirement,Contractual Breach,Offload,Involuntary Resignation',
                 'status' => 'required|in:New,Approved,Pending,Denied',
@@ -47,32 +47,12 @@ class OffboardingRequestsController extends Controller
         }
     }
 
-
-    private function handleFileUploads($files): array
-    {
-        $fileNames = [];
-
-        if (!empty($files)) {
-            foreach ($files as $file) {
-                $path = $file->store('offboarding_files');
-                $fileName = $file->getClientOriginalName();
-                Log::info('Uploaded file:', ['file_name' => $fileName]);
-                $fileNames[] = $fileName;
-            }
-        } else {
-            Log::info('No files uploaded.');
-        }
-
-        return $fileNames;
-    }
-
-
     public function submitManagerApproval(Request $httpRequest, OffboardingRequest $request)
     {
         try {
             // Validate the request
             $validatedData = $httpRequest->validate([
-                'employee_id' => 'required|exists:main.employees,id',
+                'employee_id' => 'required|exists:employeeinfo.employees,id',
                 'type_of_request' => 'required|in:Resignation,Retirement,Contractual Breach,Offload,Involuntary Resignation',
                 'description' => 'nullable|string',
                 'files' => 'nullable|array',
@@ -83,12 +63,12 @@ class OffboardingRequestsController extends Controller
             $employee = Employee::findOrFail($validatedData['employee_id']);
 
             // Fetch the department of the employee
-            $jobRole = $employee->job_role;
+            $jobRole = $employee->hrJob;
 
             // Check if the job role exists
             if ($jobRole) {
                 // Fetch the department of the job role
-                $department = $jobRole->department;
+                $department = $jobRole->hrJobCategory->department;
 
                 // Check if the department exists
                 if ($department) {
@@ -138,7 +118,7 @@ class OffboardingRequestsController extends Controller
         try {
             // Validate the request
             $validatedData = $request->validate([
-                'employee_id' => 'required|exists:main.employees,id',
+                'employee_id' => 'required|exists:employeeinfo.employees,id',
                 'status' => 'required|in:Approved, Denied',
             ]);
 
@@ -156,24 +136,17 @@ class OffboardingRequestsController extends Controller
 
     public function submitRequest(Request $request)
     {
-
         try {
             // Validate form input
             $request->validate([
-                'employee_id' => 'required|exists:main.employees,id',
+                'employee_id' => 'required|exists:employeeinfo.employees,id',
                 'type_of_request' => 'required',
                 'description' => 'nullable|string',
                 'files.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Handle file uploads
-            $filePaths = [];
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
-                    $filePath = $file->store('offboarding_files');
-                    $filePaths[] = $filePath;
-                }
-            }
+            $fileNames = $this->handleFileUploads($request->file('files'));
 
             // Store form data in the database
             $offboardingRequest = new OffboardingRequest();
@@ -181,17 +154,33 @@ class OffboardingRequestsController extends Controller
             $offboardingRequest->type_of_request = $request->type_of_request;
             $offboardingRequest->description = $request->description;
             $offboardingRequest->status = 'Pending';
-            $offboardingRequest->files = implode(',', $filePaths);
+            $offboardingRequest->files = implode(',', $fileNames);
             $offboardingRequest->save();
 
             // Redirect or return a response as needed
             return redirect()->back()->with('success', 'Request submitted successfully!');
-        } catch (\Exception $errors) {
-            return response()->json(['error' => $errors->getMessage()], 500);
+        } catch (\Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 500);
         }
     }
 
-    // RequestController.php
+    private function handleFileUploads($files): array
+    {
+        $fileNames = [];
+
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                $path = $file->store('offboarding_files');
+                $fileName = $file->getClientOriginalName();
+                Log::info('Uploaded file:', ['file_name' => $fileName]);
+                $fileNames[] = $fileName;
+            }
+        } else {
+            Log::info('No files uploaded.');
+        }
+
+        return $fileNames;
+    }
 
     public function deleterequest($id)
     {

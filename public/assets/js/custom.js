@@ -803,3 +803,74 @@ $(document).ready(function () {
     });
 });
 
+/************************************************************************************************************************/
+
+/* 
+ *
+ * Survey-footer save function
+ * 
+ */
+
+function getSurveyData() {
+    const surveyTitle = document.getElementById('survey_title').value;
+    const surveyDescription = document.getElementById('survey_description').value;
+
+    const questions = [];
+    const questionCards = document.querySelectorAll('.question-card');
+    questionCards.forEach(questionCard => {
+        const questionTitle = questionCard.querySelector('.card-body input[type="text"]').value;
+        const inputTypeDropdown = questionCard.querySelector('.card-body .dropdown-toggle');
+        const questionType = inputTypeDropdown.getAttribute('data-input-type');
+
+        const options = [];
+        const optionInputs = questionCard.querySelectorAll('.card-body input[type="text"].option-input');
+        optionInputs.forEach(optionInput => {
+            options.push(optionInput.value);
+        });
+
+        questions.push({
+            question: questionTitle,
+            type: questionType,
+            options: options
+        });
+    });
+
+    return {
+        survey_title: surveyTitle,
+        survey_description: surveyDescription,
+        questions: questions
+    };
+}
+
+function saveSurvey() {
+    const surveyData = getSurveyData();
+
+    // Send survey data to backend using AJAX
+    fetch('/save-survey', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(surveyData)
+    })
+        .then(response => {
+            if (response.ok) {
+                // Survey saved successfully
+                console.log('Survey saved successfully!');
+                // Optionally, redirect to a success page or show a success message
+            } else {
+                // Failed to save survey
+                console.error('Failed to save survey');
+                // Optionally, display an error message to the user
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle any network or server errors
+        });
+}
+
+document.getElementById('saveSurveyBtn').addEventListener('click', function() {
+    saveSurvey(); 
+});

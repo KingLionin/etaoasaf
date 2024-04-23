@@ -24,7 +24,7 @@
                             {{ $request->employee->last_name }},
                             {{ $request->employee->first_name }}
                             {{ $request->employee->middle_name }}
-                          <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->job_role->department->name }}, {{ $request->employee->job_role->name}}</div>
+                          <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->hrJob->hrJobCategory->department->name }}, {{ $request->employee->hrJob->name}}</div>
                         </div>
                         <span class="badge bg-info ms-2">{{ $request->status }}</span>
                     </div>
@@ -49,7 +49,7 @@
                             {{ $request->employee->last_name }},
                             {{ $request->employee->first_name }}
                             {{ $request->employee->middle_name }}
-                            <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->job_role->department->name }}, {{ $request->employee->job_role->name}}</div>
+                            <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->hrJob->hrJobCategory->department->name }}, {{ $request->employee->hrJob->name}}</div>
                         </div>
                         <span class="badge bg-warning ms-2">{{ $request->status }}</span>
                     </div>
@@ -74,7 +74,7 @@
                             {{ $request->employee->last_name }},
                             {{ $request->employee->first_name }}
                             {{ $request->employee->middle_name }}
-                          <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->job_role->department->name }}, {{ $request->employee->job_role->name}}</div>
+                          <div class="fs-sm fw-bold text-muted mt-1">{{ $request->employee->hrJob->hrJobCategory->department->name }}, {{ $request->employee->hrJob->name}}</div>
                         </div>
                         @if ($request->status == 'Approved')
                             <span class="badge bg-success ms-2">{{ $request->status }}</span>
