@@ -63,7 +63,6 @@
 
 @section('center-scripts')
 <script src="{{URL::asset('assets/js/jquery/jquery.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/vendor/forms/selects/select2.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/vendor/ui/moment/moment.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/vendor/pickers/daterangepicker.js')}}"></script>
 <script src="{{URL::asset('assets/js/vendor/pickers/datepicker.min.js')}}"></script>
@@ -72,6 +71,5 @@
 @section('scripts')
  <script src="{{URL::asset('assets/js/custom.js')}}"></script>
  <script src="{{URL::asset('assets/demo/pages/components_tooltips.js')}}"></script>
- <script src="{{URL::asset('assets/demo/pages/form_select2.js')}}"></script>
  <script src="{{URL::asset('assets/demo/pages/picker_date.js')}}"></script>
 @endsection

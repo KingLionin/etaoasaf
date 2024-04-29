@@ -17,6 +17,7 @@
                 <tr>
                     <th>Survey Title</th>
                     <th>Survey Description</th>
+                    <th>Position Distributed</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <tr>
                         <td>{{ $survey->survey_title }}</td>
                         <td>{{ $survey->survey_description }}</td>
+                        <td>{{ $survey->distribute_position }}</td>
                         <td class="text-center">
                             <div class="d-inline-flex">
                                 <div class="dropdown">
@@ -35,7 +37,7 @@
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a href="#" class="dropdown-item">
                                             <i class="ph-eye me-2"></i>
-                                            Preview
+                                            View
                                         </a>
                                         <a href="#" class="dropdown-item">
                                             <i class="ph-pencil-line me-2"></i>
