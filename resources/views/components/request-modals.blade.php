@@ -3,8 +3,7 @@
     <div id="modal_form_request_employee_view_{{ $request->id }}" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div
-                    class="modal-header bg-primary text-white border-0 d-flex justify-content-center align-content-center">
+                <div class="modal-header bg-primary text-white border-0 d-flex justify-content-center align-content-center">
                     <h1 class="modal-title">REQUEST</h1>
                 </div>
 
@@ -48,7 +47,7 @@
                             <label class="col-lg-4">Description:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->description }}</span>
+                                    <span style="word-wrap: break-word;">{{ $request->description }}</span>
                                 </div>
                             </div>
 
@@ -138,7 +137,7 @@
                             <label class="col-lg-4">Description:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->description }}</span>
+                                    <span style="word-wrap: break-word;">{{ $request->description }}</span>
                                 </div>
                             </div>
 
@@ -304,7 +303,7 @@
                             <label class="col-lg-4">Description:</label>
                             <div class="col-lg-7">
                                 <div class="mb-3">
-                                    <span>{{ $request->description }}</span>
+                                    <span style="word-wrap: break-word;">{{ $request->description }}</span>
                                 </div>
                             </div>
                         </div>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Session;
-use App\Models\Recruitment\Hr_job;
-use App\Models\EmployeeInfo\Employee;
+use App\Models\Survey;
 use App\Models\OffboardingRequest;
+use App\Models\Recruitment\Hr_job;
 use Illuminate\Support\Facades\Auth;
+use App\Models\EmployeeInfo\Employee;
 
 class SideNavController extends Controller
 {
@@ -57,13 +58,16 @@ class SideNavController extends Controller
 
     public function surveypage()
     {
-        return view('survey-table', $this->getOffboardingRequests());
+        $surveys = Survey::all();
+        return view('survey-table', array_merge($this->getOffboardingRequests(), compact('surveys')));
     }
+    
     public function createsurveyforms()
     {
         $jobRoles = Hr_job::whereNotIn('name', ['Manager', 'Staff'])->get();
         return view('create-survey', $this->getOffboardingRequests(), compact('jobRoles'));
     }
+
     public function employeeresponse()
     {
         return view('employee-response', $this->getOffboardingRequests());

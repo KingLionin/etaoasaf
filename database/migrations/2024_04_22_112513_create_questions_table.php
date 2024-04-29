@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('survey_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->enum('type', ['text', 'textarea', 'radio', 'checkbox', 'dropdown', 'scale']);
+            $table->enum('type', ['text', 'textarea', 'radio', 'checkbox']);
+            $table->foreignId('option_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

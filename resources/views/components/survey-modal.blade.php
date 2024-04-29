@@ -8,28 +8,31 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label class="col-form-label col-lg-5">Distribute To (By Position):</label>
-                    <select class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
-                      <option value=""> -- Select Position to Distribute -- </option>
-                      @foreach($jobRoles as $jobRole)
-                        <option>{{ $jobRole->name }}</option>
-                      @endforeach
-                      <option>Manager</option>
-                      <option>Staff</option>
-                      <option>All</option>
+                    <select class="form-control select" id="distribute_position" name="distribute_position"
+                        data-minimum-results-for-search="Infinity">
+                        <option value=""> -- Select Position to Distribute -- </option>
+                        @foreach($jobRoles as $jobRole)
+                            <option value="{{ $jobRole->name }}">{{ $jobRole->name }}</option>
+                        @endforeach
+                        <option value="all">All</option>
                     </select>
+                </div>
+                <div class="mb-3">
                     <label class="col-form-label col-lg-3">Distribute Type</label>
-                    <select id="distributeType" class="form-control mb-2 select" data-minimum-results-for-search="Infinity">
+                    <select id="distributeType" name="distributeType" class="form-control select" data-minimum-results-for-search="Infinity">
                         <option value=""> -- Select Distribute Type -- </option>
                         <optgroup label="Human Resource Events">
-                            <option>Offboarding</option>
-                            <option>Payroll</option>
+                            <option value="offboarding">Offboarding</option>
+                            <option value="payroll">Payroll</option>
                         </optgroup>
-                        <option>Schedule</option>
-                        <option>Distribute Now</option>
+                        <option value="schedule">Schedule</option>
+                        <option value="now">Distribute Now</option>
                     </select>
-                    <div id="scheduleInput" class="input-group" style="display: none;">
-                        <span class="input-group-text mt-2"><i class="ph-calendar"></i></span>
-                        <input type="text" id="datepicker" class="form-control mt-2 daterange-weeknumbers" value="03/18/2024 - 03/23/2024">
+                </div>
+                <div id="scheduleInput" class="input-group" style="display: none;">
+                    <div class="input-group datepicker-range-one-side">
+                        <input type="text" id="start_date" name="start_date" class="form-control" placeholder="From">
+                        <input type="text" id="end_date" name="end_date" class="form-control" placeholder="To">
                     </div>
                 </div>
             </div>

@@ -13,18 +13,15 @@ class Question extends Model
 
     protected $table = 'questions';
 
-    protected $fillable = [
-         'title',
-         'option_id'
-    ];
-
-    public function options()
-    {
-        return $this->hasMany(Option::class);
-    }
+    protected $fillable = ['survey_id', 'question', 'type'];
 
     public function survey()
     {
         return $this->belongsTo(Survey::class);
+    }
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
     }
 }

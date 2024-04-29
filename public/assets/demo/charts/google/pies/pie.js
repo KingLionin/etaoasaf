@@ -12,6 +12,7 @@
 
 var GooglePieBasic = function() {
 
+
     //
     // Setup module components
     //
@@ -30,16 +31,24 @@ var GooglePieBasic = function() {
 
         // Initialize chart
         google.charts.load('current', {
-            callback: function() {
+            callback: function () {
 
                 // Draw chart
                 drawPie();
+
+                // Resize on sidebar width change
+                var sidebarToggle = document.querySelectorAll('.sidebar-control');
+                if (sidebarToggle) {
+                    sidebarToggle.forEach(function(togglers) {
+                        togglers.addEventListener('click', drawPie);
+                    });
+                }
 
                 // Resize on window resize
                 var resizePieBasic;
                 window.addEventListener('resize', function() {
                     clearTimeout(resizePieBasic);
-                    resizePieBasic = setTimeout(function() {
+                    resizePieBasic = setTimeout(function () {
                         drawPie();
                     }, 200);
                 });
@@ -60,10 +69,10 @@ var GooglePieBasic = function() {
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['OandT', 'Number per day'],
-                ['OFFBOARD', 10],
-                ['TERMINATED', 10],
-                ['EMPLOYEES', 10]
+                ['TandO', 'Numbers per Day'],
+                ['OFFBOARDED', 1],
+                ['TERMINATED', 1],
+                ['EMPLOYEES', 1]
             ]);
 
             // Options
@@ -74,7 +83,7 @@ var GooglePieBasic = function() {
                 backgroundColor: 'transparent',
                 pieSliceBorderColor: color_theme('#2c2d32', '#fff'),
                 colors: [
-                    '#f0ad4e', '#d9534f', '#0275d8',
+                    '#ffc107','#dc3545','#0d6efd'
                 ],
                 legend: {
                     textStyle: {
@@ -82,9 +91,9 @@ var GooglePieBasic = function() {
                     }
                 },
                 chartArea: {
-                    left: 30,
-                    width: '90%',
-                    height: '90%'
+                    left: 50,
+                    width: '100%',
+                    height: '100%'
                 }
             };
 

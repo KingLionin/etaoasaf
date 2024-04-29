@@ -29,7 +29,7 @@
                             <td>{{ $employee->last_name }}</td> <!--- employee_lastname  --->
                             <td>{{ $employee->first_name }}</td>  <!--- employee_firstname  --->
                             <td>{{ $employee->middle_name }}</td> <!--- employee_middlename  ---> 
-                            <td>{{ $employee->hrJob->hrJobCategory->department->name}}</td>
+                            <td>{{ $employee->hrJob->hrJobCategory->department->name }}</td>
                             <td>{{ $employee->hrJob->name }}</td> <!--- position->position_name --->
                             <td class="text-center">
                                 <div class="d-inline-flex">
@@ -150,11 +150,8 @@
     <script src="{{URL::asset('assets/js/vendor/tables/datatables/extensions/responsive.min.js')}}"></script>
     <script src="{{URL::asset('assets/js/vendor/tables/datatables/extensions/select.min.js')}}"></script>
     <script src="{{URL::asset('assets/js/vendor/tables/datatables/extensions/col_reorder.min.js')}}"></script>
-    <script src="{{URL::asset('assets/js/vendor/forms/wizards/steps.min.js')}}"></script>
-    <script src="{{URL::asset('assets/js/vendor/forms/validation/validate.min.js')}}"></script>
 @endsection
 
 @section('scripts')
     <script src="{{URL::asset('assets/demo/pages/datatables_basic.js')}}"></script>
-    <script src="{{URL::asset('assets/demo/pages/form_wizard.js')}}"></script>
 @endsection

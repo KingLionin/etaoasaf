@@ -20,11 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let optionCounter = 1; // Initialize option counter
 
     // Event listener for dropdown menu options
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const dropdownItems = document.querySelectorAll('#inputTypeDropdown');
     dropdownItems.forEach(item => {
         item.addEventListener('click', function (event) {
             event.preventDefault();
-            const inputType = this.getAttribute('data-input-type');
+            const inputType = this.value;
             if (inputType === "text") {
                 updateQuestionConstructorForText();
             } else if (inputType === "textarea") {
@@ -33,10 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 updateQuestionConstructorForRadio();
             } else if (inputType === "checkbox") {
                 updateQuestionConstructorForCheckbox();
-            } else if (inputType === "dropdown") {
-                updateQuestionConstructorForDropdown();
-            } else if (inputType === "scale") {
-                updateQuestionConstructorForLinearScale();
             } else {
                 throw new Error('Invalid input type');
             }
@@ -171,143 +167,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Function to create a dropdown option
-    function createDropdownOption() {
-        const optionWrapperDropdown = document.createElement('div');
-        optionWrapperDropdown.classList.add('dropdown-option-wrapper', 'mb-2', 'd-flex', 'align-items-center');
-
-        // Create number indication
-        const number = document.createElement('span');
-        number.textContent = optionCounter.toString();
-        number.style.marginRight = '10px';
-        optionWrapperDropdown.appendChild(number);
-
-        // Create corresponding textfield
-        const textField = createTextField();
-        textField.placeholder = "Option";
-        textField.disabled = true;
-        optionWrapperDropdown.appendChild(textField);
-
-        // Create delete button
-        const deleteButton = createDeleteButton();
-        deleteButton.addEventListener('click', function () {
-            optionWrapperDropdown.remove();
-            optionCounter--;
-            updateOptionNumbers();
-        });
-        optionWrapperDropdown.appendChild(deleteButton);
-
-        updateOptionNumbers(); // Update numbers after deletion
-
-        return optionWrapperDropdown;
-    }
-
-    // Function to update question constructor for Checkbox
-    function updateQuestionConstructorForDropdown() {
-        const questionConstructor = document.getElementById('questionConstructor');
-        questionConstructor.innerHTML = ""; // Clear previous content
-
-        // Reset the counter when updating
-        optionCounter = 1;
-
-        // Create default Dropdown option
-        const defaultOption = createDropdownOption();
-        questionConstructor.appendChild(defaultOption);
-
-        // Update option numbers after adding the default option
-        updateOptionNumbers();
-
-        // Create 'Add Option' button
-        const addOptionButton = createAddOptionButton();
-        questionConstructor.appendChild(addOptionButton);
-
-        // Event listener for 'Add Option' button
-        addOptionButton.addEventListener('click', function () {
-            const newOption = createDropdownOption();
-            questionConstructor.insertBefore(newOption, this);
-            // Update option numbers after adding the default option
-            updateOptionNumbers();
-        });
-    }
-
-
-    // Function to update question constructor for linear scale
-    function updateQuestionConstructorForLinearScale() {
-        const questionConstructor = document.getElementById('questionConstructor');
-        questionConstructor.innerHTML = ""; // Clear previous content
-
-        // Create row for minimum value
-        const minRow = createRowWithDropdownAndTextField('Minimum:', 0, 1, 1);
-        questionConstructor.appendChild(minRow);
-
-        // Create row for maximum value
-        const maxRow = createRowWithDropdownAndTextField('Maximum:', 1, 10, 5);
-        questionConstructor.appendChild(maxRow);
-    }
-
-    // Function to create a row with dropdown and text field
-    function createRowWithDropdownAndTextField(label, start, end, defaultValue) {
-        const row = document.createElement('div');
-        row.classList.add('row', 'mb-2');
-
-        // Create column for dropdown
-        const dropdownColumn = document.createElement('div');
-        dropdownColumn.classList.add('col');
-        const dropdown = createScaleDropdown(label, start, end, defaultValue);
-        dropdownColumn.appendChild(dropdown);
-        row.appendChild(dropdownColumn);
-
-        // Create column for text field
-        const textFieldColumn = document.createElement('div');
-        textFieldColumn.classList.add('mt-4', 'col');
-        const textField = createTextField();
-        textField.placeholder = "Enter Label (Optional)";
-        textFieldColumn.appendChild(textField);
-        row.appendChild(textFieldColumn);
-
-        return row;
-    }
-
-    // Function to create a dropdown for scale values
-    function createScaleDropdown(label, start, end, defaultValue) {
-        const dropdownWrapper = document.createElement('div');
-        dropdownWrapper.classList.add('scale-dropdown-wrapper');
-
-        // Create label for dropdown
-        const dropdownLabel = document.createElement('label');
-        dropdownLabel.classList.add('form-label');
-        dropdownLabel.textContent = label;
-        dropdownWrapper.appendChild(dropdownLabel);
-
-        // Create dropdown
-        const dropdown = document.createElement('select');
-        dropdown.classList.add('form-select');
-        for (let i = start; i <= end; i++) {
-            const option = document.createElement('option');
-            option.text = i;
-            option.value = i;
-            if (i === defaultValue) {
-                option.selected = true;
-            }
-            dropdown.appendChild(option);
-        }
-        dropdownWrapper.appendChild(dropdown);
-
-        return dropdownWrapper;
-    }
-
     // Function to create a text field
     function createTextField() {
         const textField = document.createElement('input');
         textField.type = "text";
-        textField.classList.add('form-control');
+        textField.classList.add('form-control' ,'option-input');
         return textField;
     }
 
     // Function to create a textarea
     function createTextarea() {
         const textarea = document.createElement('textarea');
-        textarea.classList.add('form-control');
+        textarea.classList.add('form-control', 'option-input');
         return textarea;
     }
 
@@ -317,15 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
         deleteButton.innerHTML = 'X';
         deleteButton.classList.add('btn', 'btn-danger', 'ms-2');
         return deleteButton;
-    }
-
-    // Function to update the numbers of all options
-    function updateOptionNumbers() {
-        const options = document.querySelectorAll('.dropdown-option-wrapper');
-        options.forEach((option, index) => {
-            const number = option.querySelector('span');
-            number.textContent = (index + 1).toString();
-        });
     }
 });
 
@@ -393,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textField = document.createElement('input');
         textField.type = "text";
         textField.placeholder = "Option";
-        textField.classList.add('form-control', 'flex-grow-1');
+        textField.classList.add('form-control', 'flex-grow-1', 'option-input');
         optionWrapperRadio.appendChild(textField);
 
         // Create delete button
@@ -452,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textField = document.createElement('input');
         textField.type = "text";
         textField.placeholder = "Option";
-        textField.classList.add('form-control', 'flex-grow-1');
+        textField.classList.add('form-control', 'flex-grow-1', 'option-input');
         optionWrapperCheckbox.appendChild(textField);
 
         // Create delete button
@@ -486,142 +348,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Function to update the numbers of all options
-    function updateOptionNumbers() {
-        const options = document.querySelectorAll('.dropdown-option-wrapper');
-        options.forEach((option, index) => {
-            const number = option.querySelector('span');
-            number.textContent = (index + 1).toString();
-        });
-    }
-
-    // Modify the createDropdownOption function to accept unique IDs
-    function createDropdownOption(inputFieldsId, optionCounter) {
-        const optionWrapperDropdown = document.createElement('div');
-        optionWrapperDropdown.classList.add('dropdown-option-wrapper', 'mb-2', 'd-flex', 'align-items-center');
-
-        // Create number indication
-        const number = document.createElement('span');
-        number.textContent = optionCounter.toString();
-        number.style.marginRight = '10px';
-        optionWrapperDropdown.appendChild(number);
-
-        // Create corresponding textfield
-        const textField = document.createElement('input');
-        textField.type = "text";
-        textField.placeholder = "Option";
-        textField.classList.add('form-control', 'flex-grow-1');
-        optionWrapperDropdown.appendChild(textField);
-
-        // Create delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'X';
-        deleteButton.classList.add('btn', 'btn-danger', 'ms-2');
-        deleteButton.addEventListener('click', function () {
-            optionWrapperDropdown.remove();
-            updateOptionNumbers(); // Update numbers after deletion
-        });
-        optionWrapperDropdown.appendChild(deleteButton);
-
-        return optionWrapperDropdown;
-    }
-
-
-    // Function to update question constructor for Checkbox
-    function updateQuestionConstructorForDropdown(questionConstructor, inputFieldsId) {
-        questionConstructor.innerHTML = ""; // Clear previous content
-
-        // Reset the counter when updating
-        let optionCounter = 1;
-
-        // Create default Dropdown option
-        const defaultOption = createDropdownOption(inputFieldsId, optionCounter);
-        questionConstructor.appendChild(defaultOption);
-
-        // Create 'Add Option' button
-        const addOptionButton = createAddOptionButton();
-        questionConstructor.appendChild(addOptionButton);
-
-        // Event listener for 'Add Option' button
-        addOptionButton.addEventListener('click', function () {
-            optionCounter++;
-            const newOption = createDropdownOption(inputFieldsId, optionCounter);
-            questionConstructor.insertBefore(newOption, this);
-        });
-    }
-
-    // Function to update question constructor for linear scale
-    function updateQuestionConstructorForLinearScale(questionConstructor) {
-        questionConstructor.innerHTML = ""; // Clear previous content
-
-        // Create row for minimum value
-        const minRow = createRowWithDropdownAndTextField('Minimum:', 0, 1, 1);
-        questionConstructor.appendChild(minRow);
-
-        // Create row for maximum value
-        const maxRow = createRowWithDropdownAndTextField('Maximum:', 1, 10, 5);
-        questionConstructor.appendChild(maxRow);
-    }
-
-    // Function to create a row with dropdown and text field
-    function createRowWithDropdownAndTextField(label, start, end, defaultValue) {
-        const row = document.createElement('div');
-        row.classList.add('row', 'mb-2');
-
-        // Create column for minimum dropdown
-        const minDropdownColumn = document.createElement('div');
-        minDropdownColumn.classList.add('col');
-        const minDropdown = createScaleDropdown(label, start, end, defaultValue);
-        minDropdownColumn.appendChild(minDropdown);
-        row.appendChild(minDropdownColumn);
-
-        // Create column for minimum text field
-        const minTextFieldColumn = document.createElement('div');
-        minTextFieldColumn.classList.add('mt-4', 'col');
-        const minTextField = createTextField();
-        minTextFieldColumn.appendChild(minTextField);
-        row.appendChild(minTextFieldColumn);
-
-        return row;
-    }
-
-    // Function to create a dropdown for scale values
-    function createScaleDropdown(label, start, end, defaultValue) {
-        const dropdownWrapper = document.createElement('div');
-        dropdownWrapper.classList.add('scale-dropdown-wrapper');
-
-        // Create label for dropdown
-        const dropdownLabel = document.createElement('label');
-        dropdownLabel.classList.add('form-label');
-        dropdownLabel.textContent = label;
-        dropdownWrapper.appendChild(dropdownLabel);
-
-        // Create dropdown
-        const dropdown = document.createElement('select');
-        dropdown.classList.add('form-select');
-        for (let i = start; i <= end; i++) {
-            const option = document.createElement('option');
-            option.text = i;
-            option.value = i;
-            if (i === defaultValue) {
-                option.selected = true;
-            }
-            dropdown.appendChild(option);
-        }
-        dropdownWrapper.appendChild(dropdown);
-
-        return dropdownWrapper;
-    }
-
-    // Function to create a text field
-    function createTextField() {
-        const textField = document.createElement('input');
-        textField.type = "text";
-        textField.placeholder = "Enter label";
-        textField.classList.add('form-control');
-        return textField;
-    }
-
     let questionCounter = document.querySelectorAll('.question-card').length; // Counter for question numbers
 
     // Function to add a new question card
@@ -638,6 +364,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Generate unique IDs for dropdown elements within this card
         const inputTypeDropdownId = `inputTypeDropdown${questionCounter}`;
         const inputFieldsId = `inputFields${questionCounter}`;
+        const questionId = `question${questionCounter}`;
 
         // Create header for the question card
         const cardHeader = document.createElement('div');
@@ -648,11 +375,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <a href="#" class="me-2 delete-question" data-bs-toggle="tooltip" title="Delete" data-bs-placement="top">
                                         <i class="text-white ph-trash"></i>
                                     </a>
-                                    <div class="me-2" style="border-left: 1px solid rgba(255,255,255,0.5); height: 30px; margin-right: 5px;"></div>
-                                    <div class="form-check form-switch text-white d-flex align-items-center">
-                                        <input type="checkbox" class="form-check-input form-check-input-white me-2" id="dc_rss_u">
-                                        <label class="form-check-label" for="dc_rss_u">Required</label>
-                                    </div>
                                 </div>
                             </div>`;
 
@@ -663,31 +385,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
         cardBody.innerHTML = `<div class="row">
-                            <div class="col-md-10 mb-3">
+                            <div class="col-md-9 mb-3">
                                 <input type="text" placeholder="Enter your Question" class="form-control" />
                             </div>
-                            <div class="col-md-2 mb-3">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="${inputTypeDropdownId}"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Input Types
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="${inputTypeDropdownId}">
-                                        <li><a class="dropdown-item" href="#" data-input-type="text"><i class="ph ph-text-align-left me-2"></i>Textfield</a></li>
-                                        <li><a class="dropdown-item" href="#" data-input-type="textarea"><i class="ph ph-text-align-justify me-2"></i>Textarea</a></li>
-                                        <hr />
-                                        <li><a class="dropdown-item" href="#" data-input-type="radio"><i class="ph ph-radio-button me-2"></i>Radio Button</a></li>
-                                        <li><a class="dropdown-item" href="#" data-input-type="checkbox"><i class="ph ph-check-square me-2"></i>Checkboxes</a></li>
-                                        <li><a class="dropdown-item" href="#" data-input-type="dropdown"><i class="ph ph-caret-down me-2"></i>Dropdown</a></li>
-                                        <li><a class="dropdown-item" href="#" data-input-type="scale"><i class="ph ph-dots-three-outline me-2"></i>Linear Scale</a></li>
-                                    </ul>
+                            <div class="col-md-3 mb-3">
+                                <div class="col-md-12">
+                                    <select class="form-select dropdown-toggle" id="${inputTypeDropdownId}">
+                                        <option class="dropdown-item" name="text" value="text">Textfield</option>
+                                        <option class="dropdown-item" name="textarea" value="textarea">Textarea</option>
+                                        <option class="dropdown-item" name="radio" value="radio">Radio Button</option>
+                                        <option class="dropdown-item" name="checkbox" value="checkbox">Checkboxes</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="input-fields" id="${inputFieldsId}" data-question-number="${questionCounter}">
                                     <!-- This is where the dynamically shown input field will be placed -->
                                     <!-- Default input field (textfield) -->
-                                    <input type="text" placeholder="Show Textfield" class="form-control" disabled/>
+                                    <input type="text" placeholder="Show Textfield" id="${questionId}" name="question" class="form-control" disabled/>
                                 </div>
                             </div>
                         </div>`;
@@ -708,11 +423,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Event listener for dropdown menu options
-        const dropdownItems = newQuestionCard.querySelectorAll('.dropdown-item');
+        const dropdownItems = newQuestionCard.querySelectorAll(`#${inputTypeDropdownId}`);
         dropdownItems.forEach(item => {
             item.addEventListener('click', function (event) {
                 event.preventDefault();
-                const inputType = this.getAttribute('data-input-type');
+                const inputType = this.value;
                 const questionCard = this.closest('.question-card');
                 let questionConstructor = null;
                 if (questionCard) {
@@ -729,10 +444,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     updateQuestionConstructorForRadio(questionConstructor);
                 } else if (inputType === "checkbox") {
                     updateQuestionConstructorForCheckbox(questionConstructor);
-                } else if (inputType === "dropdown") {
-                    updateQuestionConstructorForDropdown(questionConstructor, inputFieldsId); // Pass the inputFieldsId
-                } else if (inputType === "scale") {
-                    updateQuestionConstructorForLinearScale(questionConstructor);
                 } else {
                     console.log('error');
                 }
@@ -811,27 +522,38 @@ $(document).ready(function () {
  * 
  */
 
+// Function to retrieve survey data from the form
 function getSurveyData() {
     const surveyTitle = document.getElementById('survey_title').value;
     const surveyDescription = document.getElementById('survey_description').value;
-
+    
     const questions = [];
     const questionCards = document.querySelectorAll('.question-card');
     questionCards.forEach(questionCard => {
-        const questionTitle = questionCard.querySelector('.card-body input[type="text"]').value;
-        const inputTypeDropdown = questionCard.querySelector('.card-body .dropdown-toggle');
-        const questionType = inputTypeDropdown.getAttribute('data-input-type');
+        const questionTitleInput = questionCard.querySelector('.card-body input[type="text"]');
+        const questionTitle = questionTitleInput.value;
+        const questionTypeSelect = questionCard.querySelector('.card-body select');
+        const questionType = questionTypeSelect.value;
 
         const options = [];
+        const optionIds = []; // Initialize option IDs array
+
         const optionInputs = questionCard.querySelectorAll('.card-body input[type="text"].option-input');
-        optionInputs.forEach(optionInput => {
+        optionInputs.forEach((optionInput, index) => {
             options.push(optionInput.value);
+            // Assign option ID based on index (assuming options are added sequentially)
+            optionIds.push(index + 1);
         });
 
+        const questionId = questionCard.dataset.questionId; // Add this line to get the question ID
+
+        // Push question data along with options and IDs
         questions.push({
+            id: questionId, // Add question ID
             question: questionTitle,
             type: questionType,
-            options: options
+            options: options,
+            option_ids: optionIds // Add option IDs
         });
     });
 
@@ -842,11 +564,36 @@ function getSurveyData() {
     };
 }
 
+// Function to save the survey data
 function saveSurvey() {
     const surveyData = getSurveyData();
 
-    // Send survey data to backend using AJAX
-    fetch('/save-survey', {
+    const distribute_position = document.getElementById('distribute_position').value; // Retrieve selected position
+    const distributeType = document.getElementById('distributeType').value; // Retrieve selected distribution type
+    const start_date = document.getElementById('start_date').value; // Get the start_date schedule
+    const end_date = document.getElementById('end_date').value; // Get the end_date schedule
+
+    // Add distribution details to the survey data
+    surveyData.distribute_position = distribute_position;
+    surveyData.distributeType = distributeType;
+    surveyData.start_date = start_date;
+    surveyData.end_date = end_date;
+
+    // Close the modal
+    $('#survey_modal_form').modal('hide');
+
+    // Show loading indicator
+    Swal.fire({
+        title: 'Saving Survey',
+        html: 'Please wait...',
+        allowOutsideClick: false,
+        showConfirmButton: false, // Remove the confirm button
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    fetch('/api/save-survey', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -854,23 +601,44 @@ function saveSurvey() {
         },
         body: JSON.stringify(surveyData)
     })
-        .then(response => {
-            if (response.ok) {
-                // Survey saved successfully
-                console.log('Survey saved successfully!');
-                // Optionally, redirect to a success page or show a success message
-            } else {
-                // Failed to save survey
-                console.error('Failed to save survey');
-                // Optionally, display an error message to the user
+    .then(response => {
+        if (response.ok) {
+            console.log('Survey saved successfully!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Survey Saved',
+                text: 'Your survey has been saved successfully!',
+                allowOutsideClick: false,
+                didClose: () => {
+                    window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
+                }
+            });
+        } else {
+            console.error('Failed to save survey');
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Save Survey',
+                text: 'An error occurred while saving the survey. Please try again later.',
+                allowOutsideClick: false,
+                didClose: () => {
+                    window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
+                }
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while saving the survey. Please try again later.',
+            allowOutsideClick: false,
+            didClose: () => {
+                window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle any network or server errors
         });
+    });
 }
 
-document.getElementById('saveSurveyBtn').addEventListener('click', function() {
-    saveSurvey(); 
-});
+// Event listener for the save survey button
+document.getElementById('saveSurveyBtn').addEventListener('click', saveSurvey);

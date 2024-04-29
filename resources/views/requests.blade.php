@@ -68,25 +68,25 @@
                              @if($notification->status == 'New')
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modal_form_request_employee_view_{{ $notification->id }}">
-                                    <i class="ph-arrows-out me-2"></i>
+                                    <i class="ph-eye me-2"></i>
                                     View
                                 </a>
                             @elseif($notification->status == 'Approved')
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modal_form_old_view_{{ $notification->id }}">
-                                    <i class="ph-arrows-out me-2"></i>
+                                    <i class="ph-eye me-2"></i>
                                     View
                                 </a>
                             @elseif($notification->status == 'Pending')
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modal_form_pending_view_{{ $notification->id }}">
-                                    <i class="ph-arrows-out me-2"></i>
+                                    <i class="ph-eye me-2"></i>
                                     View
                                 </a>
                             @else
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modal_form_old_view_{{ $notification->id }}">
-                                    <i class="ph-arrows-out me-2"></i>
+                                    <i class="ph-eye me-2"></i>
                                     View
                                 </a>
                             @endif

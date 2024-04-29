@@ -13,10 +13,7 @@ class Option extends Model
 
     protected $table = 'options';
 
-    protected $fillable = [
-         'question_id',
-         'value'
-    ];
+    protected $fillable = ['question_id', 'value'];
 
     public function question()
     {

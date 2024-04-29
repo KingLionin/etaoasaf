@@ -13,13 +13,9 @@ class Survey extends Model
 
     protected $table = 'surveys';
 
-    protected $fillable = [
-        'survey_title',
-        'survey_description',
-        'question_id'
-    ];
+    protected $fillable = ['survey_title', 'survey_description', 'distribute_position', 'distribute_type'];
 
-    public function question()
+    public function questions()
     {
         return $this->hasMany(Question::class);
     }

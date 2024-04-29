@@ -36,7 +36,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/legal-management-approval/send', [App\Http\Controllers\LegalManagementController::class, 'sendApproval'])->name('legal-management-approval.send');
 
-    Route::post('/save-survey', [App\Http\Controllers\SurveyController::class, 'saveSurveyDetails'])->name('survey.save');
-
     Route::get('/etaoasaf/logout', [App\Http\Controllers\SideNavController::class, 'logoutprocess'])->name('logout');
 });

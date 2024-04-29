@@ -204,9 +204,11 @@ class OffboardingRequestsController extends Controller
     {
         try {
             $count = OffboardingRequest::where('status', 'New')->count();
+
             return response()->json(['count' => $count], 200);
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
     }
+
 }
