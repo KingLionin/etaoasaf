@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('legal_management_approvals', function (Blueprint $table) {
+        Schema::connection('mysql')->create('legal_management_approvals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('offboard_id')->unsigned();
             $table->timestamps();

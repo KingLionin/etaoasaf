@@ -12,4 +12,4 @@
     </div>
 </div>
 
-@include('components.survey-modal')
+@include('components.survey-distribute-modal')

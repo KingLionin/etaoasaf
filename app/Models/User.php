@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\EmployeeInfo\Employee;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,11 +32,6 @@ class User extends Authenticatable
         'remember_token',
         'avatar',
     ];
-
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
 
     /**
      * The attributes that should be hidden for serialization.

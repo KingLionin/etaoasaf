@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/etaoasaf/employee_survey_and_feedback/survey/create_survey', [App\Http\Controllers\SideNavController::class, 'createsurveyforms'])->name('createsurvey.page');
     Route::get('/etaoasaf/employee_survey_and_feedback/survey', [App\Http\Controllers\SideNavController::class, 'surveypage'])->name('survey.page');
+    Route::get('/surveys/view/{id}', [App\Http\Controllers\SurveyController::class, 'getSurvey']);
+    Route::get('/surveys/edit/{id}', [App\Http\Controllers\SurveyController::class, 'getSurveyById']);
+    Route::put('/surveys/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('surveys.update');
+    Route::delete('/survey/delete/{id}', [App\Http\Controllers\SurveyController::class, 'deletesurvey'])->name('surveys.delete');
     Route::get('/etaoasaf/employee_survey_and_feedback/feedback/employee_response', [App\Http\Controllers\SideNavController::class, 'employeeresponse'])->name('employeeresponse.page');
 
     Route::post('/submit-form', [App\Http\Controllers\Api\OffboardingRequestsController::class, 'submitRequest'])->name('submit.form');

@@ -13,7 +13,7 @@ class Survey extends Model
 
     protected $table = 'surveys';
 
-    protected $fillable = ['survey_title', 'survey_description', 'distribute_position', 'distribute_type'];
+    protected $fillable = ['survey_title', 'survey_description', 'distribute_position', 'distribute_type', 'created_at', 'start_date', 'end_date'];
 
     public function questions()
     {

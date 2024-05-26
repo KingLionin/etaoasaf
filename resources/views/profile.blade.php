@@ -19,9 +19,9 @@
                     <div class="sidebar-section-body text-center">
                         <div class="card-img-actions d-inline-block mb-3">
                             @if(auth()->user()->image)
-                                <img class="img-fluid rounded-circle" src="{{ asset('storage/' . auth()->user()->image) }}" width="150" height="150" alt="Profile_Image">
+                            <img class="img-fluid rounded-circle" src="{{ asset('storage/' . auth()->user()->image) }}" width="150" height="150" alt="Profile_Image">
                             @else
-                                <img class="img-fluid rounded-circle" src="{{ URL::asset('images/default-profile-picture.jpg') }}" width="150" height="150" alt="Default_Profile_Image">
+                            <img class="img-fluid rounded-circle" src="{{ URL::asset('images/default-profile-picture.jpg') }}" width="150" height="150" alt="Default_Profile_Image">
                             @endif
                         </div>
 
@@ -48,50 +48,50 @@
                     </div>
 
                     <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Department</label>
-                                        <input type="text" class="form-control" value="NULL" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Position</label>
-                                        <input type="text" class="form-control" value="NULL" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Work Status</label>
-                                        <input type="text" class="form-control" value="NULL" readonly>
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Department</label>
+                                    <input type="text" class="form-control" value="NULL" readonly>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Position</label>
+                                    <input type="text" class="form-control" value="NULL" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Work Status</label>
+                                    <input type="text" class="form-control" value="NULL" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Address</label>
-                                        <textarea class="form-control" style="resize:none;" readonly>NULL</textarea>
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" style="resize:none;" readonly>NULL</textarea>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->email }}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Work Setup</label>
-                                        <input type="text" class="form-control" value="NULL" readonly>
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" class="form-control" value="{{ auth()->user()->email }}" readonly>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Work Setup</label>
+                                    <input type="text" class="form-control" value="NULL" readonly>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /profile info -->
@@ -115,3 +115,4 @@
 @section('scripts')
 <script src="{{URL::asset('assets/demo/pages/user_pages_profile.js')}}"></script>
 @endsection
+

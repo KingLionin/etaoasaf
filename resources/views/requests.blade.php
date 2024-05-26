@@ -8,8 +8,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="m-0">Requests Table</h5>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modal_form_construct_request_vertical">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_form_construct_request_vertical">
                 <i class="ph-pencil"></i>
                 <span class="d-none d-xl-inline-block ms-2">Construct Request</span>
             </button>
@@ -28,80 +27,76 @@
             </thead>
             <tbody>
                 @foreach($notifications as $notification)
-                    <tr>
-                        <td>{{ $notification->employee->last_name }}, {{ $notification->employee->first_name }}
-                            {{ $notification->employee->middle_name }}</td>
-                        <td>{{ $notification->employee->hrJob->hrJobCategory->department->name }}</td>
-                        <td>{{ $notification->employee->hrJob->name }}</td>
-                        <td>
+                <tr>
+                    <td>{{ $notification->employee->last_name }}, {{ $notification->employee->first_name }}
+                        {{ $notification->employee->middle_name }}</td>
+                    <td>{{ $notification->employee->hrJob->hrJobCategory->department->name }}</td>
+                    <td>{{ $notification->employee->hrJob->name }}</td>
+                    <td>
                         @php
-    $statusClass = '';
-    switch ($notification->status) {
-        case 'Approved':
-            $statusClass = 'badge bg-success bg-opacity-50 text-body';
-            break;
-        case 'New':
-            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
-            break;
-        case 'Pending':
-            $statusClass = 'badge bg-warning bg-opacity-50 text-body';
-            break;
-        case 'Denied':
-            $statusClass = 'badge bg-danger bg-opacity-50 text-body';
-            break;
-        default:
-            $statusClass = 'badge bg-primary bg-opacity-50 text-body';
-            break;
-    }
+                        $statusClass = '';
+                        switch ($notification->status) {
+                        case 'Approved':
+                        $statusClass = 'badge bg-success bg-opacity-50 text-body';
+                        break;
+                        case 'New':
+                        $statusClass = 'badge bg-primary bg-opacity-50 text-body';
+                        break;
+                        case 'Pending':
+                        $statusClass = 'badge bg-warning bg-opacity-50 text-body';
+                        break;
+                        case 'Denied':
+                        $statusClass = 'badge bg-danger bg-opacity-50 text-body';
+                        break;
+                        default:
+                        $statusClass = 'badge bg-primary bg-opacity-50 text-body';
+                        break;
+                        }
                         @endphp
                         <span class="badge {{ $statusClass }}">{{ $notification->status }}</span>
-                        </td>
-                <td>{{ $notification->created_at }}</td>
-                <td class="text-center">
-                    <div class="d-inline-flex">
-                        <div class="dropdown">
-                            <a href="#" class="text-body" data-bs-toggle="dropdown">
-                                <i class="ph-list"></i>
-                            </a>
+                    </td>
+                    <td>{{ $notification->created_at }}</td>
+                    <td class="text-center">
+                        <div class="d-inline-flex">
+                            <div class="dropdown">
+                                <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                    <i class="ph-list"></i>
+                                </a>
 
-                            <div class="dropdown-menu dropdown-menu-end">
-                             @if($notification->status == 'New')
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_request_employee_view_{{ $notification->id }}">
-                                    <i class="ph-eye me-2"></i>
-                                    View
-                                </a>
-                            @elseif($notification->status == 'Approved')
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_old_view_{{ $notification->id }}">
-                                    <i class="ph-eye me-2"></i>
-                                    View
-                                </a>
-                            @elseif($notification->status == 'Pending')
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_pending_view_{{ $notification->id }}">
-                                    <i class="ph-eye me-2"></i>
-                                    View
-                                </a>
-                            @else
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modal_form_old_view_{{ $notification->id }}">
-                                    <i class="ph-eye me-2"></i>
-                                    View
-                                </a>
-                            @endif
-                            <form id="deleteForm{{ $notification->id }}" method="post" action="{{ route('requests.delete', $notification->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <a href="#" class="dropdown-item" onclick="document.getElementById('deleteForm{{ $notification->id }}').submit()">
-                                   <i class="ph-trash me-2"></i>
-                                     Delete
-                                </a>
-                            </form>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    @if($notification->status == 'New')
+                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_form_request_employee_view_{{ $notification->id }}">
+                                        <i class="ph-eye me-2"></i>
+                                        View
+                                    </a>
+                                    @elseif($notification->status == 'Approved')
+                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_form_old_view_{{ $notification->id }}">
+                                        <i class="ph-eye me-2"></i>
+                                        View
+                                    </a>
+                                    @elseif($notification->status == 'Pending')
+                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_form_pending_view_{{ $notification->id }}">
+                                        <i class="ph-eye me-2"></i>
+                                        View
+                                    </a>
+                                    @else
+                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_form_old_view_{{ $notification->id }}">
+                                        <i class="ph-eye me-2"></i>
+                                        View
+                                    </a>
+                                    @endif
+                                    <form id="deleteForm{{ $notification->id }}" method="post" action="{{ route('requests.delete', $notification->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="#" class="dropdown-item" onclick="document.getElementById('deleteForm{{ $notification->id }}').submit()">
+                                            <i class="ph-trash me-2"></i>
+                                            Delete
+                                        </a>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -120,17 +115,13 @@
 @section('center-scripts')
 <script src="{{ URL::asset('assets/js/vendor/tables/datatables/datatables.min.js') }}">
 </script>
-<script
-    src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/buttons.min.js') }}">
+<script src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/buttons.min.js') }}">
 </script>
-<script
-    src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}">
+<script src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}">
 </script>
-<script
-    src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/select.min.js') }}">
+<script src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/select.min.js') }}">
 </script>
-<script
-    src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/col_reorder.min.js') }}">
+<script src="{{ URL::asset('assets/js/vendor/tables/datatables/extensions/col_reorder.min.js') }}">
 </script>
 <script src="{{ URL::asset('assets/js/vendor/notifications/bootbox.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/vendor/forms/inputs/imask.min.js') }}"></script>
@@ -141,8 +132,7 @@
 </script>
 <script src="{{ URL::asset('assets/js/vendor/uploaders/fileinput/fileinput.min.js') }}">
 </script>
-<script
-    src="{{ URL::asset('assets/js/vendor/uploaders/fileinput/plugins/sortable.min.js') }}">
+<script src="{{ URL::asset('assets/js/vendor/uploaders/fileinput/plugins/sortable.min.js') }}">
 </script>
 @endsection
 
@@ -152,3 +142,4 @@
 <script src="{{ URL::asset('assets/demo/pages/form_controls_extended.js') }}"></script>
 <script src="{{ URL::asset('assets/demo/pages/uploader_bootstrap.js') }}"></script>
 @endsection
+

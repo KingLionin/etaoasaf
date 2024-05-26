@@ -1,18 +1,12 @@
-/* ------------------------------------------------------------------------------
- *
- *  # Custom JS code
- *
- *  Place here all your custom js. Make sure it's loaded after app.js
- *
- * ---------------------------------------------------------------------------- */
-
 /************************************************************************************************************************/
 
-/* 
- *
+/**
+ * 
+ *   
  * Create Survey page
  * 
- */
+ *
+ **/
 
 //For the dropdown options functions
 document.addEventListener("DOMContentLoaded", function () {
@@ -171,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function createTextField() {
         const textField = document.createElement('input');
         textField.type = "text";
-        textField.classList.add('form-control' ,'option-input');
+        textField.classList.add('form-control', 'option-input');
         return textField;
     }
 
@@ -220,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create textfield
         const textField = document.createElement('input');
         textField.type = "text";
-        textField.placeholder = "Enter answer";
+        textField.placeholder = "Show Textfield";
         textField.classList.add('form-control');
         textField.disabled = true;
         questionConstructor.appendChild(textField);
@@ -232,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create textarea
         const textarea = document.createElement('textarea');
-        textarea.placeholder = "Enter answer";
+        textarea.placeholder = "Show Textarea";
         textarea.classList.add('form-control');
         textarea.disabled = true;
         questionConstructor.appendChild(textarea);
@@ -254,6 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create corresponding textfield
         const textField = document.createElement('input');
         textField.type = "text";
+        textField.required = true;
         textField.placeholder = "Option";
         textField.classList.add('form-control', 'flex-grow-1', 'option-input');
         optionWrapperRadio.appendChild(textField);
@@ -314,6 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textField = document.createElement('input');
         textField.type = "text";
         textField.placeholder = "Option";
+        textField.required = true;
         textField.classList.add('form-control', 'flex-grow-1', 'option-input');
         optionWrapperCheckbox.appendChild(textField);
 
@@ -386,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardBody.classList.add('card-body');
         cardBody.innerHTML = `<div class="row">
                             <div class="col-md-9 mb-3">
-                                <input type="text" placeholder="Enter your Question" class="form-control" />
+                                <input type="text" placeholder="Enter your Question" class="form-control question-input" required/>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <div class="col-md-12">
@@ -504,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 $(document).ready(function () {
     // Function to show/hide the datepicker when "Schedule" is selected
-    $('#distributeType').change(function () {
+    $('#distribute_type').change(function () {
         var selectedOption = $(this).val();
         if (selectedOption === 'schedule') {
             $('#scheduleInput').show();
@@ -522,11 +518,120 @@ $(document).ready(function () {
  * 
  */
 
+// Function to validate the survey form
+function validateSurveyForm() {
+    const surveyTitle = document.getElementById('survey_title');
+    const distributeType = document.getElementById('distribute_type');
+    const distributePosition = document.getElementById('distribute_position');
+    const startDate = document.getElementById('start_date');
+    const endDate = document.getElementById('end_date');
+
+    let isValid = true;
+
+    // Check required fields
+    if (surveyTitle.value.trim() === '') {
+        console.log('Survey Title is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Survey Title',
+                    text: 'Survey Title is required',
+                    allowOutsideClick: false,
+                });
+        surveyTitle.focus();
+        isValid = false;
+    }
+
+    if (distributePosition.value.trim() === '') {
+        console.log('Type of Employee Distribution is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title:'Type of Employee Distribution',
+                    text: 'Type of Employee Distribution is required',
+                    allowOutsideClick: false,
+                });
+        distributePosition.focus();
+        isValid = false;
+    }
+
+    if (distributeType.value.trim() === '') {
+        console.log('Type of Survey Distribution is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title:'Type of Survey Distribution',
+                    text: 'Type of Survey Distribution is required',
+                    allowOutsideClick: false,
+                });
+        distributeType.focus();
+        isValid = false;
+    }
+
+    if (distributeType.value === 'schedule') {
+        if (startDate.value === '') {
+            console.log('Start Date of Schedule Survey is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Start Date of Schedule Survey',
+                    text: 'Start Date of Schedule Survey is required',
+                    allowOutsideClick: false,
+                });
+            startDate.focus();
+            isValid = false;
+        } else if (endDate.value === '') {
+            console.log('Start Date of Schedule Survey is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'End Date of Schedule Survey',
+                    text: 'End Date of Schedule Survey is required',
+                    allowOutsideClick: false,
+                });
+            endDate.focus();
+            isValid = false;
+        }
+    }
+
+    // Additional validation for start_date and end_date
+    if (startDate.value && endDate.value) {
+        const start = new Date(startDate.value);
+        const end = new Date(endDate.value);
+
+        if (start > end) {
+            console.log('End date is earlier than start date');
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date Range',
+                text: 'End date cannot be earlier than start date.',
+                allowOutsideClick: false,
+            });
+            endDate.focus();
+            isValid = false;
+        }
+    }
+
+    // Check required fields for questions
+    const questionInputs = document.querySelectorAll('.question-input');
+    questionInputs.forEach(input => {
+        if (!input.value.trim()) {
+            console.log('Question Input field is null');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Question Input Field',
+                    text: 'Question Input Field is required',
+                    allowOutsideClick: false,
+                });
+            input.focus();
+            isValid = false;
+            return false; // Note: Returning false in forEach does not break out of the loop, consider using a for loop if you need to break early.
+        }
+    });
+
+    return isValid;
+}
+
 // Function to retrieve survey data from the form
 function getSurveyData() {
     const surveyTitle = document.getElementById('survey_title').value;
     const surveyDescription = document.getElementById('survey_description').value;
-    
+
     const questions = [];
     const questionCards = document.querySelectorAll('.question-card');
     questionCards.forEach(questionCard => {
@@ -566,18 +671,26 @@ function getSurveyData() {
 
 // Function to save the survey data
 function saveSurvey() {
+    if (!validateSurveyForm()) {
+        return; // Exit if validation fails
+    }
+
     const surveyData = getSurveyData();
 
     const distribute_position = document.getElementById('distribute_position').value; // Retrieve selected position
-    const distributeType = document.getElementById('distributeType').value; // Retrieve selected distribution type
-    const start_date = document.getElementById('start_date').value; // Get the start_date schedule
-    const end_date = document.getElementById('end_date').value; // Get the end_date schedule
+    const distribute_type = document.getElementById('distribute_type').value; // Retrieve selected distribution type
+    const start_date = document.getElementById('start_date').value;
+    const end_date = document.getElementById('end_date').value;
 
-    // Add distribution details to the survey data
+    // Add distribution details to the survey datas
     surveyData.distribute_position = distribute_position;
-    surveyData.distributeType = distributeType;
-    surveyData.start_date = start_date;
-    surveyData.end_date = end_date;
+    surveyData.distribute_type = distribute_type;
+
+    // Add dates only if distribute type is 'schedule'
+    if (distribute_type === 'schedule') {
+        surveyData.start_date = start_date;
+        surveyData.end_date = end_date;
+    }
 
     // Close the modal
     $('#survey_modal_form').modal('hide');
@@ -601,44 +714,45 @@ function saveSurvey() {
         },
         body: JSON.stringify(surveyData)
     })
-    .then(response => {
-        if (response.ok) {
-            console.log('Survey saved successfully!');
-            Swal.fire({
-                icon: 'success',
-                title: 'Survey Saved',
-                text: 'Your survey has been saved successfully!',
-                allowOutsideClick: false,
-                didClose: () => {
-                    window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
-                }
-            });
-        } else {
-            console.error('Failed to save survey');
+        .then(response => {
+            if (response.ok) {
+                console.log('Survey saved successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Survey Saved',
+                    text: 'Your survey has been saved successfully!',
+                    allowOutsideClick: false,
+                    didClose: () => {
+                        window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
+                    }
+                });
+            } else {
+                console.error('Failed to save survey');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to Save Survey',
+                    text: 'An error occurred while saving the survey.',
+                    allowOutsideClick: false,
+                    didClose: () => {
+                        window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
             Swal.fire({
                 icon: 'error',
-                title: 'Failed to Save Survey',
-                text: 'An error occurred while saving the survey. Please try again later.',
+                title: 'Error',
+                text: 'SURVEY DID NOT SAVED.',
                 allowOutsideClick: false,
                 didClose: () => {
                     window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
                 }
             });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while saving the survey. Please try again later.',
-            allowOutsideClick: false,
-            didClose: () => {
-                window.location.href = '/etaoasaf/employee_survey_and_feedback/survey'; // Redirect to survey table
-            }
         });
-    });
 }
 
 // Event listener for the save survey button
 document.getElementById('saveSurveyBtn').addEventListener('click', saveSurvey);
+

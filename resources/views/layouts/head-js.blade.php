@@ -8,6 +8,7 @@
 @yield('center-scripts')
 
  <!-- Theme JS files -->
- <script src="{{URL::asset('assets/js/app.js')}}"></script>
+ <script src="{{ URL::asset('assets/js/app.js')}}"></script>
+ <script src="{{ URL::asset('assets/js/notification.js')}}"></script>
  <!-- /theme JS files -->
 @yield('scripts')

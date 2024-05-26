@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('main')->create('users', function (Blueprint $table) {
+        Schema::connection('employeeinfo')->create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('avatar')->nullable();
@@ -26,9 +26,9 @@ return new class extends Migration
 
         User::create([
             'name' => 'admin',
-            'email' => 'admin@themesbrand.com',
+            'email' => 'admin@ess25.workfolio.com',
             'password' => Hash::make('123456'),
-            'email_verfied_at' => now(),
+            'email_verified_at' => now(),
             'avatar' => 'avatar-1.jpg',
             'token' => 'JbUxwlz9rTcbLl0bBGi959uVccdOKYOottL9arNaMmgislZwvAjJMxjYyeiI',
             'remember_token' => 'Uz3jr5QOeBxUUt7ZmyIL89CDXVeBielU4ETJgVQYLp2dVZrIrwOfN19IHTWy',

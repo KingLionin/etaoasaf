@@ -59,7 +59,8 @@ class SideNavController extends Controller
     public function surveypage()
     {
         $surveys = Survey::all();
-        return view('survey-table', array_merge($this->getOffboardingRequests(), compact('surveys')));
+        $jobRoles = Hr_job::whereNotIn('name', ['Manager', 'Staff'])->get();
+        return view('survey-table', array_merge($this->getOffboardingRequests(), compact('surveys', 'jobRoles')));
     }
     
     public function createsurveyforms()

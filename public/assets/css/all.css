@@ -25501,6 +25501,8 @@ html[data-color-theme=dark] .datepicker {
 
 .datepicker-picker {
     display: inline-block;
+    position: relative;
+    z-index: 1050;
     background-color: var(--dp-bg);
     background-clip: padding-box;
     border: var(--dp-border-width) solid var(--dp-border-color);

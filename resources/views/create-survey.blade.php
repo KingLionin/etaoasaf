@@ -13,7 +13,7 @@
                 <input type="text" id="survey_title" name="survey_title" placeholder="Enter Survey Title" class="form-control" required/>
             </div>
             <div class="mb-3">
-                <textarea placeholder="Enter Survey Description" name="survey_description" id="survey_description" class="form-control elastic" required></textarea>
+                <textarea placeholder="Enter Survey Description (Optional)" name="survey_description" id="survey_description" class="form-control elastic"></textarea>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9 mb-3">
-                    <input type="text" placeholder="Enter your Question" class="form-control" />
+                    <input type="text" placeholder="Enter your Question" class="form-control" required/>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="col-md-12">
@@ -69,7 +69,7 @@
 @endsection
 
 @section('scripts')
- <script src="{{URL::asset('assets/js/custom.js')}}"></script>
+ <script src="{{URL::asset('assets/js/create-survey.js')}}"></script>
  <script src="{{URL::asset('assets/demo/pages/components_tooltips.js')}}"></script>
  <script src="{{URL::asset('assets/demo/pages/picker_date.js')}}"></script>
 @endsection

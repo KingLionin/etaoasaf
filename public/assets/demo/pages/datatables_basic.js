@@ -26,11 +26,11 @@ const DatatableBasic = function() {
 
         // Setting datatable defaults
         $.extend( $.fn.dataTable.defaults, {
-            autoWidth: false,
+            autoWidth: true,
             columnDefs: [{ 
                 orderable: false,
                 width: 100,
-                targets: [ 0 ]
+                targets: [ 1 ]
             }],
             dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
             language: {
