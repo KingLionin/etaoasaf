@@ -5,15 +5,15 @@
  * Survey View Table
  * 
  */
-$(document).on('click', '.view-survey-btn', function() {
+$(document).on('click', '.view-survey-btn', function () {
     var surveyId = $(this).data('survey-view-id');
     $.ajax({
         url: '/surveys/view/' + surveyId, // Create a route to handle this request
         method: 'GET'
-        , success: function(response) {
+        , success: function (response) {
             $('#survey_title').text(response.survey_title);
             $('#survey_description').text(response.survey_description);
-            $('#created_at').text(response.created_at);
+            $('#created_at').text(moment(response.created_at).format('MMMM DD, YYYY'));
             $('#distribute_position').text(response.distribute_position);
             if (response.distribute_type === 'Schedule') {
                 $('#distribute_type').text(response.start_date + ' to ' + response.end_date);
@@ -22,7 +22,7 @@ $(document).on('click', '.view-survey-btn', function() {
             }
 
             var questionsHtml = '';
-            response.questions.forEach(function(question) {
+            response.questions.forEach(function (question) {
                 questionsHtml += '<div class="card">';
                 questionsHtml += '<div class="card-header bg-primary text-white border-0">';
                 questionsHtml += '<h3 class="card-title">' + question.question + '</h3>';
@@ -33,7 +33,7 @@ $(document).on('click', '.view-survey-btn', function() {
                 } else if (question.type === 'textarea') {
                     questionsHtml += '<textarea class="form-control elastic" name="' + question.id + '" placeholder="Show textarea" disabled></textarea>';
                 } else {
-                    question.options.forEach(function(option) {
+                    question.options.forEach(function (option) {
                         questionsHtml += '<div class="form-check mb-3">';
                         if (question.type === 'radio') {
                             questionsHtml += '<input class="form-check-input" type="radio" name="' + question.id + '[]" disabled />';
@@ -53,7 +53,7 @@ $(document).on('click', '.view-survey-btn', function() {
 
             $('#questions_container').html(questionsHtml);
         }
-        , error: function() {
+        , error: function () {
             alert('Failed to load survey details.');
         }
     });
@@ -80,36 +80,36 @@ function validateSurveyForm() {
     // Check required fields
     if (editsurveyTitle.value.trim() === '') {
         console.log('Survey Title is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Survey Title',
-                    text: 'Survey Title is required',
-                    allowOutsideClick: false,
-                });
+        Swal.fire({
+            icon: 'warning',
+            title: 'Survey Title',
+            text: 'Survey Title is required',
+            allowOutsideClick: false,
+        });
         editsurveyTitle.focus();
         isValid = false;
     }
 
     if (editdistributePosition.value.trim() === '') {
         console.log('Type of Employee Distribution is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title:'Type of Employee Distribution',
-                    text: 'Type of Employee Distribution is required',
-                    allowOutsideClick: false,
-                });
+        Swal.fire({
+            icon: 'warning',
+            title: 'Type of Employee Distribution',
+            text: 'Type of Employee Distribution is required',
+            allowOutsideClick: false,
+        });
         editdistributePosition.focus();
         isValid = false;
     }
 
     if (editdistributeType.value.trim() === '') {
         console.log('Type of Survey Distribution is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title:'Type of Survey Distribution',
-                    text: 'Type of Survey Distribution is required',
-                    allowOutsideClick: false,
-                });
+        Swal.fire({
+            icon: 'warning',
+            title: 'Type of Survey Distribution',
+            text: 'Type of Survey Distribution is required',
+            allowOutsideClick: false,
+        });
         editdistributeType.focus();
         isValid = false;
     }
@@ -117,22 +117,22 @@ function validateSurveyForm() {
     if (editdistributeType.value === 'schedule') {
         if (editstartDate.value === '') {
             console.log('Start Date of Schedule Survey is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Start Date of Schedule Survey',
-                    text: 'Start Date of Schedule Survey is required',
-                    allowOutsideClick: false,
-                });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Start Date of Schedule Survey',
+                text: 'Start Date of Schedule Survey is required',
+                allowOutsideClick: false,
+            });
             editstartDate.focus();
             isValid = false;
         } else if (editendDate.value === '') {
             console.log('Start Date of Schedule Survey is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'End Date of Schedule Survey',
-                    text: 'End Date of Schedule Survey is required',
-                    allowOutsideClick: false,
-                });
+            Swal.fire({
+                icon: 'warning',
+                title: 'End Date of Schedule Survey',
+                text: 'End Date of Schedule Survey is required',
+                allowOutsideClick: false,
+            });
             editendDate.focus();
             isValid = false;
         }
@@ -161,12 +161,12 @@ function validateSurveyForm() {
     questionInputs.forEach(input => {
         if (!input.value.trim()) {
             console.log('Question Input field is null');
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Question Input Field',
-                    text: 'Question Input Field is required',
-                    allowOutsideClick: false,
-                });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Question Input Field',
+                text: 'Question Input Field is required',
+                allowOutsideClick: false,
+            });
             input.focus();
             isValid = false;
             return false; // Note: Returning false in forEach does not break out of the loop, consider using a for loop if you need to break early.
@@ -176,19 +176,19 @@ function validateSurveyForm() {
     return isValid;
 }
 
-$(document).ready(function() {
-    $('#edit_modal_full').on('show.bs.modal', function(event) {
+$(document).ready(function () {
+    $('#edit_modal_full').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var surveyId = button.data('survey-edit-id');
         var modal = $(this);
 
         // Fetch the survey data using AJAX
-        $.get('/surveys/edit/' + surveyId, function(data) {
+        $.get('/surveys/edit/' + surveyId, function (data) {
             // Populate the modal fields with the survey data
             $('#surveyIds').val(surveyId);
             $('#editSurveyTitle').val(data.survey_title);
             $('#editSurveyDescription').val(data.survey_description);
-
+            $('#edit_created_at').text(moment(data.created_at).format('MMMM DD, YYYY')); // Corrected this line
             // Populate distribute_position field
             $('#edit_distribute_position').val(data.distribute_position);
 
@@ -205,15 +205,16 @@ $(document).ready(function() {
             var questionsContainer = $('#questions_container_edit');
             questionsContainer.empty();
 
-            data.questions.forEach(function(question, index) {
+            data.questions.forEach(function (question, index) {
                 var questionHtml = generateQuestionCard(question, index);
                 questionsContainer.append(questionHtml);
             });
         });
+
     });
 });
 
-$('#editSurveyForm').submit(function(event) {
+$('#editSurveyForm').submit(function (event) {
     event.preventDefault();
     var formData = new FormData(this);
 
@@ -250,11 +251,11 @@ $('#editSurveyForm').submit(function(event) {
         , headers: {
             'X-CSRF-TOKEN': csrfToken
         }
-        , success: function(response) {
+        , success: function (response) {
             // Handle successful response from server
             console.log(response);
         }
-        , error: function(xhr, status, error) {
+        , error: function (xhr, status, error) {
             // Handle error response from server
             console.error(xhr.responseText);
         }
@@ -264,13 +265,13 @@ $('#editSurveyForm').submit(function(event) {
 // Function to retrieve the questions data from the DOM
 function getQuestionsData() {
     var questionsData = [];
-    $('.question-card').each(function() {
+    $('.question-card').each(function () {
         var question = $(this).find('input[name="question"]').val();
         var type = $(this).find('select[name="type"]').val();
         var options = [];
 
         // Retrieve options if available
-        $(this).find('input[name="option"]').each(function() {
+        $(this).find('input[name="option"]').each(function () {
             var optionValue = $(this).val();
             if (optionValue.trim() !== '') {
                 options.push(optionValue);
@@ -287,7 +288,7 @@ function getQuestionsData() {
     return questionsData;
 }
 
-$('#addQuestionButton').click(function() {
+$('#addQuestionButton').click(function () {
     var questionsContainer = $('#questions_container_edit');
     var newQuestionIndex = questionsContainer.children('.question-card').length;
     var newQuestionHtml = generateQuestionCard({
@@ -341,7 +342,7 @@ function generateInputFields(question) {
         inputFields = `<textarea class="form-control" placeholder="Show Textarea" disabled>${value}</textarea>`;
     } else if (question.type === 'radio' || question.type === 'checkbox') {
         if (question.options && question.options.length > 0) {
-            question.options.forEach(function(option) {
+            question.options.forEach(function (option) {
                 // Check if option is an object and use option.value or a similar property
                 var optionValue = (typeof option === 'object' && option !== null) ? option.value : option;
                 inputFields += `
@@ -386,7 +387,7 @@ function deleteQuestion(button) {
     card.remove();
 
     // Renumber the remaining questions
-    $('.card.question-card').each(function(index) {
+    $('.card.question-card').each(function (index) {
         $(this).find('.card-header h5').text('Question ' + (index + 1));
     });
 }
@@ -397,7 +398,7 @@ function changeQuestionType(select) {
     var existingOptions = [];
 
     // Collect current options if the question has them
-    container.find('.form-check').each(function() {
+    container.find('.form-check').each(function () {
         var optionValue = $(this).find('input[type="text"]').val();
         existingOptions.push(optionValue);
     });

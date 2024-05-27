@@ -23,7 +23,7 @@
                                         <h5 class="mb-1">Description:</h5>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h5 style="word-wrap: break-word;" id="survey_description">{{ $survey->survey_description }}</h5>
+                                        <h5 style="word-wrap: break-word;" id="survey_description"></h5>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -38,9 +38,15 @@
                                     <div class="mb-3 col-lg-4">
                                         <h5 class="mb-1">Distribute To:</h5>
                                     </div>
+                                    @if($survey->distribute_position == "all")
                                     <div class="col-lg-8">
-                                        <h5 id="distribute_position"></h5>
+                                        <h5>All Employees</h5>
                                     </div>
+                                    @else
+                                    <div class="col-lg-8">
+                                        <h5 class="text-capitalize" id="distribute_position"></h5>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-4">

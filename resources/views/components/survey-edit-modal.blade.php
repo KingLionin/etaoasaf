@@ -36,7 +36,7 @@
                                             <h5 class="mb-0">Date Created:</h5>
                                         </div>
                                         <div class="col-lg-8 mt-2">
-                                            <h2>{{ $survey->created_at }}</h2>
+                                            <h2 id="edit_created_at"></h2>
                                         </div>
                                     </div>
                                     <div class="row align-items-center mb-3">
@@ -49,7 +49,7 @@
                                                 @foreach($jobRoles as $jobRole)
                                                 <option value="{{ $jobRole->name }}">{{ $jobRole->name }}</option>
                                                 @endforeach
-                                                <option value="all">All</option>
+                                                <option value="all">All Employees</option>
                                             </select>
                                         </div>
                                     </div>
