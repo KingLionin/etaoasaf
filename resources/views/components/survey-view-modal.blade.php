@@ -31,7 +31,7 @@
                                         <h5 class="mb-1">Date Created:</h5>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h5 d="created_at"></h5>
+                                        <h5 id="created_at"></h5>
                                     </div>
                                 </div>
                                 <div class="row">
