@@ -199,32 +199,21 @@ class OffboardingRequestsController extends Controller
         }
     }
 
-
     public function count()
     {
-        try {
-            $count = OffboardingRequest::where('status', 'New')->count();
+        $count = OffboardingRequest::where('status', 'New')->count();
+        return response()->json(['count' => $count], 200);
+    }
 
-            return response()->json(['count' => $count], 200);
-        } catch (\Exception $error) {
-            return response()->json(['error' => $error->getMessage()], 500);
-        }
+    public function offboardcount()
+    {
+        $offcount = OffboardingRequest::where('status', 'Approved')->count();
+        return response()->json(['offcount' => $offcount], 200);
     }
 
     public function employeecount()
     {
         $emplcount = Employee::count();
         return response()->json(['emplcount' => $emplcount], 200);
-    }
-
-    public function offboardcount()
-    {
-        try {
-            $offcount = OffboardingRequest::where('status', 'Approved')->count();
-
-            return response()->json(['offcount' => $offcount], 200);
-        } catch (\Exception $error) {
-            return response()->json(['error' => $error->getMessage()], 500);
-        }
     }
 }

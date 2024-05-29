@@ -12,7 +12,7 @@
                     <i class="ph-users-three ph-2x text-warning me-3"></i>
 
                     <div class="flex-fill text-end">
-                        <h4 class="mb-0 text-body">0</h4>
+                        <h4 class="mb-0 text-body" id="off-count"></h4>
                         <span class="text-muted">OFFBOARD</span>
                     </div>
                 </a>

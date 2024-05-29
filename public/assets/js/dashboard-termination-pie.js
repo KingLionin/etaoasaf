@@ -63,6 +63,9 @@ var GooglePieBasic = function() {
                 url: '/stats/offboard', // Assuming this is the correct endpoint
                 method: 'GET',
                 success: function(response) {
+                    drawPie(response.offcount);
+                    document.getElementById('off-count').innerText = response.offcount;
+                    
                     if (response.offcount === 0) {
                         displayNoDataMessage();
                     } else {
