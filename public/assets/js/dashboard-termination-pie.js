@@ -44,18 +44,32 @@ var GooglePieBasic = function() {
 
         // Fetch data from backend and draw the pie chart
         function fetchDataAndDrawPie() {
+            var emplcount = 0;
+            var offcount = 0;
+            var terminateCount = 0;
+            var dataFetched = 0;
+
+            function checkAndDrawPie() {
+                if (dataFetched === 2) {
+                    if (emplcount === 0 && offcount === 0) {
+                        displayNoDataMessage();
+                    } else {
+                        drawPie(emplcount, offcount);
+                    }
+                }
+            }
+
             $.ajax({
                 url: '/stats/employees', // Assuming this is the correct endpoint
                 method: 'GET',
                 success: function(response) {
-                    if (response.emplcount === 0) {
-                        displayNoDataMessage();
-                    } else {
-                        drawPie(response.emplcount);
-                    }
+                    emplcount = response.emplcount || 0;
+                    dataFetched++;
+                    checkAndDrawPie();
                 },
                 error: function() {
-                    displayNoDataMessage();
+                    dataFetched++;
+                    checkAndDrawPie();
                 }
             });
 
@@ -63,17 +77,13 @@ var GooglePieBasic = function() {
                 url: '/stats/offboard', // Assuming this is the correct endpoint
                 method: 'GET',
                 success: function(response) {
-                    drawPie(response.offcount);
-                    document.getElementById('off-count').innerText = response.offcount;
-
-                    if (response.offcount === 0) {
-                        displayNoDataMessage();
-                    } else {
-                        drawPie(response.offcount);
-                    }
+                    offcount = response.offcount || 0;
+                    dataFetched++;
+                    checkAndDrawPie();
                 },
                 error: function() {
-                    displayNoDataMessage();
+                    dataFetched++;
+                    checkAndDrawPie();
                 }
             });
         }
@@ -85,15 +95,15 @@ var GooglePieBasic = function() {
         }
 
         // Chart settings    
-        function drawPie(offcount,emplcount) {
+        function drawPie(emplcount, offcount, terminateCount) {
             // Define charts element
             var pie_chart_element = document.getElementById('google-pie');
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['TandO', 'Numbers'],
-                ['OFFBOARD', offcount],
-                ['TERMINATED', 0],
+                ['TandO', 'Numbers per Day'],
+                ['OFFBOARDED', offcount],
+                ['TERMINATED', terminateCount],
                 ['EMPLOYEES', emplcount]
             ]);
 
