@@ -44,45 +44,18 @@ var GooglePieBasic = function() {
 
         // Fetch data from backend and draw the pie chart
         function fetchDataAndDrawPie() {
-            var emplcount = 0;
-            var offcount = 0;
-            var dataFetched = 0;
-
-            function checkAndDrawPie() {
-                if (dataFetched === 2) {
-                    if (emplcount === 0 && offcount === 0) {
-                        displayNoDataMessage();
-                    } else {
-                        drawPie(offcount, emplcount);
-                    }
-                }
-            }
-
-            $.ajax({
-                url: '/stats/employees', // Assuming this is the correct endpoint
-                method: 'GET',
-                success: function(response) {
-                    emplcount = response.emplcount || 0;
-                    dataFetched++;
-                    checkAndDrawPie();
-                },
-                error: function() {
-                    dataFetched++;
-                    checkAndDrawPie();
-                }
-            });
-
             $.ajax({
                 url: '/stats/offboard', // Assuming this is the correct endpoint
                 method: 'GET',
                 success: function(response) {
-                    offcount = response.offcount || 0;
-                    dataFetched++;
-                    checkAndDrawPie();
+                    if (response.offcount === 0) {
+                        displayNoDataMessage();
+                    } else {
+                        drawPie(response.offcount);
+                    }
                 },
                 error: function() {
-                    dataFetched++;
-                    checkAndDrawPie();
+                    console.error('Failed to fetch employee stats.');
                 }
             });
         }
@@ -90,11 +63,11 @@ var GooglePieBasic = function() {
         // Display message when no data is available
         function displayNoDataMessage() {
             var pie_chart_element = document.getElementById('google-pie');
-            pie_chart_element.innerHTML = '<div class="text-center text-muted">Cannot Display chart because there is no employee offboarded or terminated</div>';
+            pie_chart_element.innerHTML = '<div class="text-center text-muted">Cannot Display chart because there is no offboarded, terminated, and employees created</div>';
         }
 
         // Chart settings    
-        function drawPie(emplcount, offcount, terminateCount) {
+        function drawPie(offboardedCount, terminatedCount, employeeCount) {
             // Define charts element
             var pie_chart_element = document.getElementById('google-pie');
 
@@ -103,7 +76,7 @@ var GooglePieBasic = function() {
                 ['TandO', 'Numbers per Day'],
                 ['OFFBOARDED', offcount],
                 ['TERMINATED', 0],
-                ['EMPLOYEES', emplcount]
+                ['EMPLOYEES', 21]
             ]);
 
             // Options
