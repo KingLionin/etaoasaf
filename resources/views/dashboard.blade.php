@@ -42,7 +42,7 @@
                     <i class="ph-clipboard ph-2x text-primary me-3"></i>
 
                     <div class="flex-fill text-end">
-                        <h4 class="mb-0 text-body">0</h4>
+                        <h4 class="mb-0 text-body" id="survey-count"></h4>
                         <span class="text-muted">SURVEYS</span>
                     </div>
                 </a>
@@ -110,6 +110,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{URL::asset('assets/demo/charts/google/pies/pie.js')}}"></script>
-<script src="{{URL::asset('assets/demo/charts/google/pies/donut.js')}}"></script>
+<script src="{{ URL::asset('assets/js/dashboard-termination-pie.js') }}"></script>
+<script src="{{ URL::asset('assets/js/dashboard-survey-donut.js') }}"></script>
 @endsection

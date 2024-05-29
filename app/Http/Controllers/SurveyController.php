@@ -180,4 +180,11 @@ class SurveyController extends Controller
             return redirect()->back()->with('error', $exception->getMessage());
         }
     }
+
+    public function getSurveyStats()
+    {
+        $surveyCount = Survey::count();
+        return response()->json(['surveyCount' => $surveyCount]);
+    }
+
 }

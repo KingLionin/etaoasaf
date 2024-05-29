@@ -211,4 +211,20 @@ class OffboardingRequestsController extends Controller
         }
     }
 
+    public function employeecount()
+    {
+        $emplcount = Employee::count();
+        return response()->json(['emplcount' => $emplcount], 200);
+    }
+
+    public function offboardcount()
+    {
+        try {
+            $offcount = OffboardingRequest::where('status', 'Approved')->count();
+
+            return response()->json(['count' => $offcount], 200);
+        } catch (\Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 500);
+        }
+    }
 }

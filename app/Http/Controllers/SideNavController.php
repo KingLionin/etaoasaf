@@ -29,6 +29,7 @@ class SideNavController extends Controller
     {
         return view('dashboard', $this->getOffboardingRequests());
     }
+
     public function offboardingpage()
     { 
         $employees = Employee::with('hrJob.hrJobCategory.department')->get();
