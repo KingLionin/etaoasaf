@@ -222,7 +222,7 @@ class OffboardingRequestsController extends Controller
         try {
             $offcount = OffboardingRequest::where('status', 'Approved')->count();
 
-            return response()->json(['count' => $offcount], 200);
+            return response()->json(['offcount' => $offcount], 200);
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
