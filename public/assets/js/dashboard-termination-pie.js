@@ -65,7 +65,7 @@ var GooglePieBasic = function() {
                 success: function(response) {
                     drawPie(response.offcount);
                     document.getElementById('off-count').innerText = response.offcount;
-                    
+
                     if (response.offcount === 0) {
                         displayNoDataMessage();
                     } else {
@@ -85,14 +85,14 @@ var GooglePieBasic = function() {
         }
 
         // Chart settings    
-        function drawPie(emplcount, offcount) {
+        function drawPie(offcount,emplcount) {
             // Define charts element
             var pie_chart_element = document.getElementById('google-pie');
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['TandO', 'Numbers per Day'],
-                ['OFFBOARDED', offcount],
+                ['TandO', 'Numbers'],
+                ['OFFBOARD', offcount],
                 ['TERMINATED', 0],
                 ['EMPLOYEES', emplcount]
             ]);
