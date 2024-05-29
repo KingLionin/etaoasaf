@@ -128,7 +128,7 @@ var GooglePieBasic = function() {
                 chartArea: {
                     left: 50,
                     width: '100%',
-                    height: '100%'
+                    height: '90%'
                 }
             };
 
