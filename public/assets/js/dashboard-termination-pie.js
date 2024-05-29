@@ -46,7 +46,6 @@ var GooglePieBasic = function() {
         function fetchDataAndDrawPie() {
             var emplcount = 0;
             var offcount = 0;
-            var terminateCount = 0;
             var dataFetched = 0;
 
             function checkAndDrawPie() {
@@ -54,7 +53,7 @@ var GooglePieBasic = function() {
                     if (emplcount === 0 && offcount === 0) {
                         displayNoDataMessage();
                     } else {
-                        drawPie(emplcount, offcount);
+                        drawPie(offcount, emplcount);
                     }
                 }
             }
@@ -103,7 +102,7 @@ var GooglePieBasic = function() {
             var data = google.visualization.arrayToDataTable([
                 ['TandO', 'Numbers per Day'],
                 ['OFFBOARDED', offcount],
-                ['TERMINATED', terminateCount],
+                ['TERMINATED', 0],
                 ['EMPLOYEES', emplcount]
             ]);
 
