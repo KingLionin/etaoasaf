@@ -1,4 +1,21 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Google Visualization - pie chart
+ *
+ *  Google Visualization pie chart demonstration
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
 var GooglePieBasic = function() {
+
+
+    //
+    // Setup module components
+    //
 
     // Pie chart
     var _googlePieBasic = function() {
@@ -9,20 +26,21 @@ var GooglePieBasic = function() {
 
         // Switch colors in dark and light themes
         function color_theme(darkColor, lightColor) {
-            return document.documentElement.getAttribute('data-color-theme') == 'dark' ? darkColor : lightColor;
+            return document.documentElement.getAttribute('data-color-theme') == 'dark' ? darkColor : lightColor
         }
 
         // Initialize chart
         google.charts.load('current', {
             callback: function () {
-                // Fetch data and draw chart
-                fetchDataAndDrawPie();
+
+                // Draw chart
+                drawPie();
 
                 // Resize on sidebar width change
                 var sidebarToggle = document.querySelectorAll('.sidebar-control');
                 if (sidebarToggle) {
                     sidebarToggle.forEach(function(togglers) {
-                        togglers.addEventListener('click', fetchDataAndDrawPie);
+                        togglers.addEventListener('click', drawPie);
                     });
                 }
 
@@ -31,76 +49,30 @@ var GooglePieBasic = function() {
                 window.addEventListener('resize', function() {
                     clearTimeout(resizePieBasic);
                     resizePieBasic = setTimeout(function () {
-                        fetchDataAndDrawPie();
+                        drawPie();
                     }, 200);
                 });
 
                 // Redraw chart when color theme is changed
                 document.querySelectorAll('[name="main-theme"]').forEach(function(radio) {
-                    radio.addEventListener('change', fetchDataAndDrawPie);
+                    radio.addEventListener('change', drawPie);
                 });
             },
             packages: ['corechart']
         });
 
-        // Fetch data from backend and draw the pie chart
-        function fetchDataAndDrawPie() {
-            var offcount = 0;
-            var emplcount = 0;
-            var dataFetched = 0;
-
-            function checkAndDrawPie() {
-                if (dataFetched === 2) {
-                    drawPie(offcount, emplcount);
-                }
-            }
-
-            $.ajax({
-                url: '/stats/offboard', // Assuming this is the correct endpoint
-                method: 'GET',
-                success: function(response) {
-
-                    drawPie(response.offcount);
-                    document.getElementById('off-count').innerText = response.offcount;
-
-                    offcount = response.offcount || 0;
-                    dataFetched++;
-                    checkAndDrawPie();
-                },
-                error: function() {
-                    console.error('Failed to fetch offboard stats.');
-                    dataFetched++;
-                    checkAndDrawPie();
-                }
-            });
-
-            $.ajax({
-                url: '/stats/employees', // Assuming this is the correct endpoint
-                method: 'GET',
-                success: function(response) {
-                    emplcount = response.emplcount || 0;
-                    dataFetched++;
-                    checkAndDrawPie();
-                },
-                error: function() {
-                    console.error('Failed to fetch employee stats.');
-                    dataFetched++;
-                    checkAndDrawPie();
-                }
-            });
-        }
-
         // Chart settings    
-        function drawPie(offcount, emplcount) {
+        function drawPie() {
+
             // Define charts element
             var pie_chart_element = document.getElementById('google-pie');
 
             // Data
             var data = google.visualization.arrayToDataTable([
-                ['TandO', 'Numbers'],
-                ['OFFBOARD', offcount],
-                ['TERMINATED', 0], // If you want to add terminated count, you can fetch and add it here
-                ['EMPLOYEES', emplcount]
+                ['TandO', 'Numbers per Day'],
+                ['OFFBOARDED', 0],
+                ['TERMINATED', 0],
+                ['EMPLOYEES', 0]
             ]);
 
             // Options
@@ -121,7 +93,7 @@ var GooglePieBasic = function() {
                 chartArea: {
                     left: 50,
                     width: '100%',
-                    height: '90%'
+                    height: '100%'
                 }
             };
 
@@ -131,6 +103,11 @@ var GooglePieBasic = function() {
         }
     };
 
+
+    //
+    // Return objects assigned to module
+    //
+
     return {
         init: function() {
             _googlePieBasic();
@@ -138,5 +115,8 @@ var GooglePieBasic = function() {
     }
 }();
 
+
 // Initialize module
+// ------------------------------
+
 GooglePieBasic.init();
